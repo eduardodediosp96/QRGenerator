@@ -21,7 +21,7 @@ const Navbar = ({ colorTheme, setColorTheme }: NavbarProps) => {
         {colorTheme === 'light' ? <MoonIcon /> : <SunIcon />}
       </NavbarSection>
       <NavbarSection>
-        <Typography variant="title2">
+        <Typography variant="subtitle">
           <b>QR</b>Generator
         </Typography>
       </NavbarSection>

@@ -1,6 +1,5 @@
 import { keyframes } from "@emotion/react";
-import styled from "@emotion/styled";
-import { NavLink } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 // @Types
 import { Breakpoint } from '@theme/Theme.types';
@@ -74,35 +73,5 @@ export const NavbarSection = styled('div')`
       height: 24px;
       width: 24px;
     }
-  }
-`;
-
-export const NavbarLink = styled(NavLink)<{ order: number }>`
-  position: relative;
-  cursor: pointer;
-  color: ${(props) => props.theme.palette.primary};
-  top: 0;
-  text-decoration: none;
-
-  :hover {
-    transition: all 0.3s ease-in-out;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 4px;
-    bottom: -0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: all 0.3s ease-in-out;
-    background-color: ${(props) => props.theme.palette.primary};
-  }
-
-  &:hover::before,
-  &.active::before {
-    width: 95%;
-    background-color: ${(props) => props.theme.palette.accent};
   }
 `;

@@ -2,14 +2,11 @@ import { useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
 
 // @Components
+import Home from '@components/Home/Home';
 import Navbar from './Navbar/Navbar';
 
 // @Styles
-import {
-  BodyContainer,
-  MainContainer,
-  MainLayout,
-} from '../Layout/Layout.styles';
+import { MainContainer, MainLayout } from '../Layout/Layout.styles';
 
 // @Theme
 import getTheme from '@theme/Theme';
@@ -23,7 +20,7 @@ const Layout = () => {
       <MainLayout>
         <MainContainer>
           <Navbar colorTheme={colorTheme} setColorTheme={setColorTheme} />
-          <BodyContainer></BodyContainer>
+          <Home />
         </MainContainer>
       </MainLayout>
     </ThemeProvider>
