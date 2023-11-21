@@ -10,7 +10,6 @@ export const HomeContainer = styled.div`
 
 export const QRContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.backgroundWhite};
-  border: ${({ theme }) => `solid 2px ${theme.colors.backgroundBlack}`};
   border-radius: 4px;
 
   img {
