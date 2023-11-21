@@ -18,7 +18,3 @@ export const MainContainer = styled('div')`
   flex-direction: column;
   padding: 0 ${(props) => props.theme.spacing(2)};
 `;
-
-export const BodyContainer = styled('div')`
-  padding: ${(props) => `${props.theme.spacing(2)} 0`};
-`;

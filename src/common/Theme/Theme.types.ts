@@ -1,5 +1,6 @@
 export type PaletteType = {
   background: string;
+  contrast: string;
   disabled: string;
   primary: string;
   accent: string;

@@ -25,17 +25,8 @@ export const getTypography = (themeColor: 'light' | 'dark') => ({
       fontSize: fontSizes.medium,
     },
   },
-  title2: {
+  subtitle: {
     fontSize: fontSizes.xxlarge,
-    fontWeight: 700,
-    color: palette[themeColor].primary,
-    [breakpoints.down(Breakpoint.mobileL)]: {
-      fontSize: fontSizes.medium,
-    },
-  },
-  title3: {
-    fontSize: fontSizes.xlarge,
-    fontWeight: 700,
     color: palette[themeColor].primary,
     [breakpoints.down(Breakpoint.mobileL)]: {
       fontSize: fontSizes.medium,
