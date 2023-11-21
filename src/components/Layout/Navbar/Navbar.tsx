@@ -1,14 +1,9 @@
-// @Components
-import Typography from '@commonComponents/Typography/Typography';
-
-// @Constants
-import { routes } from '@constants/routes';
-
 // @Icons
 import { MoonIcon, SunIcon } from '@icons';
 
 // @Styles
-import { PortfolioNavbar, NavbarSection, NavbarLink } from './Navbar.styles';
+import { PortfolioNavbar, NavbarSection } from './Navbar.styles';
+import Typography from '@commonComponents/Typography/Typography';
 
 type NavbarProps = {
   colorTheme: 'light' | 'dark';
@@ -26,15 +21,9 @@ const Navbar = ({ colorTheme, setColorTheme }: NavbarProps) => {
         {colorTheme === 'light' ? <MoonIcon /> : <SunIcon />}
       </NavbarSection>
       <NavbarSection>
-        {routes.map((section) => (
-          <NavbarLink
-            key={section.order}
-            order={section.order}
-            to={section.href}
-          >
-            <Typography variant="label">{section.title}</Typography>
-          </NavbarLink>
-        ))}
+        <Typography variant="title2">
+          <b>QR</b>Generator
+        </Typography>
       </NavbarSection>
     </PortfolioNavbar>
   );
