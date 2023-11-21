@@ -1,5 +1,5 @@
 // @Types
-import { PaletteType } from './Theme.types';
+import { PaletteType, ThemeMode } from './Theme.types';
 
 export const colors = {
   backgroundBlack: '#101418',
@@ -11,7 +11,7 @@ export const colors = {
   accents: ['#F4BE00'],
 };
 
-export const palette: Record<'light' | 'dark', PaletteType> = {
+export const palette: Record<ThemeMode, PaletteType> = {
   dark: {
     background: colors.backgroundBlack,
     contrastBackground: colors.backgroundWhite,

@@ -7,9 +7,9 @@ import { spacing } from './Spacing';
 import { sizing } from './Sizing';
 
 // @Types
-import { ThemeType } from './Theme.types';
+import { ThemeMode, ThemeType } from './Theme.types';
 
-const getTheme = (colorTheme: 'dark' | 'light'): ThemeType => {
+const getTheme = (colorTheme: ThemeMode): ThemeType => {
   return {
     animations,
     breakpoints,

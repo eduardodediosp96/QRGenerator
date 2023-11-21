@@ -1,4 +1,8 @@
+// @Theme
 import { colors, palette } from './Palette';
+
+// @Types
+import { ThemeMode } from './Theme.types';
 
 const fontSizes = {
   xsmall: '0.75rem', //12
@@ -11,7 +15,7 @@ const fontSizes = {
   xxxlarge: '1.75rem',
 };
 
-export const getTypography = (themeColor: 'light' | 'dark') => ({
+export const getTypography = (themeColor: ThemeMode) => ({
   title: {
     fontSize: fontSizes.xlarge,
     color: palette[themeColor].primary,

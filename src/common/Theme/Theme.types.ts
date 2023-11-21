@@ -64,3 +64,8 @@ export type ThemeType = {
   sizing: SizingType;
   spacing: SpacingType;
 };
+
+export enum ThemeMode {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
