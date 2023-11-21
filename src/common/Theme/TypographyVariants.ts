@@ -1,9 +1,4 @@
-// @Theme
-import { breakpoints } from "./Breakpoints";
-import { palette } from "./Palette";
-
-// @Types
-import { Breakpoint } from "./Theme.types";
+import { colors, palette } from './Palette';
 
 const fontSizes = {
   xsmall: '0.75rem', //12
@@ -15,52 +10,28 @@ const fontSizes = {
   xxlarge: '1.5rem', // 24
   xxxlarge: '1.75rem',
 };
-  
+
 export const getTypography = (themeColor: 'light' | 'dark') => ({
-  title1: {
-    fontSize: fontSizes.xxxlarge,
-    fontWeight: 700,
+  title: {
+    fontSize: fontSizes.xlarge,
     color: palette[themeColor].primary,
-    [breakpoints.down(Breakpoint.mobileL)]: {
-      fontSize: fontSizes.medium,
-    },
   },
   subtitle: {
-    fontSize: fontSizes.xxlarge,
-    color: palette[themeColor].primary,
-    [breakpoints.down(Breakpoint.mobileL)]: {
-      fontSize: fontSizes.medium,
-    },
+    fontSize: fontSizes.medium,
+    color: palette[themeColor].secondary,
   },
   label: {
     fontSize: fontSizes.medium,
-    fontWeight: 700,
-    color: palette[themeColor].primary,
-    [breakpoints.down(Breakpoint.mobileL)]: {
-      fontSize: fontSizes.xsmall,
-    },
-  },
-  smallLabel: {
-    fontSize: fontSizes.small,
-    color: palette[themeColor].secondary,
-    [breakpoints.down(Breakpoint.mobileL)]: {
-      fontSize: fontSizes.xsmall,
-    },
+    color: colors.primaryBlack,
   },
   body1: {
-    fontSize: fontSizes.large,
+    fontSize: fontSizes.xlarge,
     color: palette[themeColor].secondary,
     lineHeight: 1.5,
-    [breakpoints.down(Breakpoint.mobileL)]: {
-      fontSize: fontSizes.xsmall,
-    },
   },
   body2: {
     fontSize: fontSizes.medium,
     color: palette[themeColor].secondary,
     lineHeight: 1.5,
-    [breakpoints.down(Breakpoint.mobileL)]: {
-      fontSize: fontSizes.xsmall,
-    },
   },
 });

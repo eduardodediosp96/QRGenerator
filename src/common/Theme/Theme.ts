@@ -1,5 +1,5 @@
 // @Theme
-import { palette } from './Palette';
+import { colors, palette } from './Palette';
 import { animations } from './Animations';
 import { breakpoints } from './Breakpoints';
 import { getTypography } from './TypographyVariants';
@@ -13,10 +13,11 @@ const getTheme = (colorTheme: 'dark' | 'light'): ThemeType => {
   return {
     animations,
     breakpoints,
-    typography: getTypography(colorTheme),
+    colors,
     palette: palette[colorTheme],
     sizing,
     spacing,
+    typography: getTypography(colorTheme),
   };
 };
 

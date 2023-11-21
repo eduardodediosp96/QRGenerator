@@ -1,6 +1,7 @@
 export type PaletteType = {
   background: string;
-  contrast: string;
+  contrastBackground: string;
+  contrastText: string;
   disabled: string;
   primary: string;
   accent: string;
@@ -44,8 +45,19 @@ export type AnimationsType = {
   hoverCard: string;
 };
 
+export type ColorsType = {
+  backgroundBlack: string;
+  backgroundWhite: string;
+  primaryBlack: string;
+  primaryWhite: string;
+  secondaryBlack: string;
+  secondaryWhite: string;
+  accents: string[];
+};
+
 export type ThemeType = {
   animations: AnimationsType;
+  colors: ColorsType;
   breakpoints: BreakpointsType;
   palette: PaletteType;
   typography: TypographyType;
