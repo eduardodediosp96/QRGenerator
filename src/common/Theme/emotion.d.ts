@@ -3,6 +3,7 @@ import '@emotion/react';
 import {
   AnimationsType,
   BreakpointsType,
+  ColorsType,
   PaletteType,
   SizingType,
   SpacingType,
@@ -12,6 +13,7 @@ import {
 declare module '@emotion/react' {
   export interface Theme {
     animations: AnimationsType;
+    colors: ColorsType;
     typography: TypographyType;
     palette: PaletteType;
     spacing: SpacingType;

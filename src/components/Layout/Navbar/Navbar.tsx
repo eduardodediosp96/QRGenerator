@@ -5,23 +5,26 @@ import { MoonIcon, SunIcon } from '@icons';
 import { PortfolioNavbar, NavbarSection } from './Navbar.styles';
 import Typography from '@commonComponents/Typography/Typography';
 
+// @Types
+import { ThemeMode } from '@theme/Theme.types';
+
 type NavbarProps = {
-  colorTheme: 'light' | 'dark';
-  setColorTheme: React.Dispatch<React.SetStateAction<'light' | 'dark'>>;
+  colorTheme: ThemeMode;
+  setColorTheme: React.Dispatch<React.SetStateAction<ThemeMode>>;
 };
 
 const Navbar = ({ colorTheme, setColorTheme }: NavbarProps) => {
   const handleChangeTheme = () => {
-    setColorTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setColorTheme((prev) => (prev === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT));
   };
 
   return (
     <PortfolioNavbar>
       <NavbarSection onClick={handleChangeTheme}>
-        {colorTheme === 'light' ? <MoonIcon /> : <SunIcon />}
+        {colorTheme === ThemeMode.LIGHT ? <MoonIcon /> : <SunIcon />}
       </NavbarSection>
       <NavbarSection>
-        <Typography variant="subtitle">
+        <Typography variant="title">
           <b>QR</b>Generator
         </Typography>
       </NavbarSection>

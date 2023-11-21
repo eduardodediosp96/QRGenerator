@@ -11,8 +11,11 @@ import { MainContainer, MainLayout } from '../Layout/Layout.styles';
 // @Theme
 import getTheme from '@theme/Theme';
 
+// @Types
+import { ThemeMode } from '@theme/Theme.types';
+
 const Layout = () => {
-  const [colorTheme, setColorTheme] = useState<'light' | 'dark'>('dark');
+  const [colorTheme, setColorTheme] = useState<ThemeMode>(ThemeMode.DARK);
   const theme = getTheme(colorTheme);
 
   return (

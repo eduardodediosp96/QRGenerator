@@ -1,21 +1,33 @@
 // @Types
-import { PaletteType } from './Theme.types';
+import { PaletteType, ThemeMode } from './Theme.types';
 
-export const palette: Record<'light' | 'dark', PaletteType> = {
+export const colors = {
+  backgroundBlack: '#101418',
+  backgroundWhite: '#EBEAF1',
+  primaryBlack: '#1D1E20',
+  primaryWhite: '#fff',
+  secondaryBlack: '#60646C',
+  secondaryWhite: '#A1A1AA',
+  accents: ['#F4BE00'],
+};
+
+export const palette: Record<ThemeMode, PaletteType> = {
   dark: {
-    background: '#1E1E1E',
-    primary: '#fff',
-    secondary: '#A1A1AA',
+    background: colors.backgroundBlack,
+    contrastBackground: colors.backgroundWhite,
+    contrastText: colors.primaryWhite,
+    primary: colors.primaryWhite,
+    secondary: colors.secondaryWhite,
     disabled: '#b5b3b3',
-    accent: '#F4BE00',
-    contrast: '#1E1E1E',
+    accent: colors.accents[0],
   },
   light: {
-    background: '#EBEAF1',
+    background: colors.backgroundWhite,
+    contrastBackground: colors.backgroundBlack,
+    contrastText: colors.primaryBlack,
     disabled: '#b5b3b3',
-    secondary: '#60646C',
-    primary: '#1E1E1E',
-    accent: '#F4BE00',
-    contrast: '#fff',
+    secondary: colors.secondaryBlack,
+    primary: colors.primaryBlack,
+    accent: colors.accents[0],
   },
 };
