@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router';
 import { ThemeProvider } from '@emotion/react';
 
 // @Components
-import Footer from './Footer/Footer';
 import Navbar from './Navbar/Navbar';
 
 // @Styles
@@ -25,10 +23,7 @@ const Layout = () => {
       <MainLayout>
         <MainContainer>
           <Navbar colorTheme={colorTheme} setColorTheme={setColorTheme} />
-          <BodyContainer>
-            <Outlet />
-          </BodyContainer>
-          <Footer />
+          <BodyContainer></BodyContainer>
         </MainContainer>
       </MainLayout>
     </ThemeProvider>
