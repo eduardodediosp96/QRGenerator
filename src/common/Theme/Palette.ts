@@ -2,7 +2,7 @@
 import { PaletteType } from './Theme.types';
 
 export const colors = {
-  backgroundBlack: '#1E1E1E',
+  backgroundBlack: '#101418',
   backgroundWhite: '#EBEAF1',
   primaryBlack: '#1D1E20',
   primaryWhite: '#fff',
