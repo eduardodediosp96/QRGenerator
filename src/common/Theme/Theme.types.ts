@@ -24,6 +24,8 @@ export type TypographyType = {
 
 export type SpacingType = (value: number) => string;
 
+export type CssProps = Record<string, string | number>;
+
 export enum Breakpoint {
   mobileS = 'mobileS',
   mobileL = 'mobileL',
@@ -39,6 +41,10 @@ export type BreakpointsType = {
   down: (breakpoint: Breakpoint) => string;
   between: (start: Breakpoint, end: Breakpoint) => string;
 };
+
+export type ShapeType = Record<number | string, string>;
+export type ShadowsType = Record<number | string, string>;
+export type ShapesType = Record<string, ShapeType>;
 
 export type AnimationsType = {
   enterCards: string;
@@ -61,6 +67,8 @@ export type ThemeType = {
   breakpoints: BreakpointsType;
   palette: PaletteType;
   typography: TypographyType;
+  shadows: ShadowsType;
+  shapes: ShapesType;
   sizing: SizingType;
   spacing: SpacingType;
 };
