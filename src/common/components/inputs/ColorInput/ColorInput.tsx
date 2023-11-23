@@ -1,8 +1,17 @@
 import { useRef, useState } from 'react';
 import styled from '@emotion/styled';
+
+// @Components
+import TextInput from '@commonComponents/inputs/TextInput/TextInput';
+
+// @Theme
 import { Breakpoint } from '@theme/Theme.types';
-import TextInput from '@commonComponents/TextInput/TextInput';
-import { CommonInputProps, TextInputSize } from '@commonComponents/commonTypes';
+
+// @Types
+import {
+  CommonInputProps,
+  TextInputSize,
+} from '@commonComponents/inputs/InputTypes';
 
 const ALLOWED_KEYS = ['Enter', 'Escape'];
 
@@ -19,6 +28,7 @@ const ColorPickerContainer = styled.div`
   position: relative;
 `;
 
+// Tech Debt: https://github.com/eduardodediosp96/QRGenerator/pull/3
 const ColorInput = styled.input`
   position: absolute;
   appearance: none;
@@ -33,19 +43,20 @@ const ColorInput = styled.input`
   }
 `;
 
-const getColorBoxMeasures = () => ({
+// Tech Debt:https://github.com/eduardodediosp96/QRGenerator/pull/3
+const getColorBoxMeasures = {
   [TextInputSize.SMALL]: '0.75rem',
   [TextInputSize.MEDIUM]: '1.5rem',
   [TextInputSize.LARGE]: '1.75rem',
-});
+};
 
 const ColorBox = styled.div<ColorBoxProps>`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   right: 1rem;
-  width: ${(props) => getColorBoxMeasures()[props.size]};
-  height: ${(props) => getColorBoxMeasures()[props.size]};
+  width: ${(props) => getColorBoxMeasures[props.size]};
+  height: ${(props) => getColorBoxMeasures[props.size]};
   background-color: ${(props) => props.color};
   pointer-events: none;
 `;
@@ -73,6 +84,8 @@ const ColorPicker = ({
     setColorInputOpen(true);
   };
 
+  // Tech Debt: This function is likely duplicated in various other input components. Consider refactoring it as a shared utility function,
+  // such as 'handleTextInputKeydown', and reuse it across components like ColorInput.
   const handleTextInputKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const key = e.key || undefined;
     if (!key || !ALLOWED_KEYS.includes(key)) {

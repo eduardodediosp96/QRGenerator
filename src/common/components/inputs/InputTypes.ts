@@ -1,5 +1,6 @@
 import { ChangeEvent, FocusEvent, MouseEvent, KeyboardEvent } from 'react';
 
+// Tech Debt:https://github.com/eduardodediosp96/QRGenerator/pull/3
 export enum TextInputSize {
   SMALL,
   MEDIUM,

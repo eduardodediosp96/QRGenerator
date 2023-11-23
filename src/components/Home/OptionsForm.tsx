@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 // @Components
-import ColorInput from '@commonComponents/ColorInput/ColorInput';
-import TextInput from '@commonComponents/TextInput/TextInput';
-import FileInput from '@commonComponents/FileInput/FileInput';
+import ColorInput from '@commonComponents/inputs/ColorInput/ColorInput';
+import TextInput from '@commonComponents/inputs/TextInput/TextInput';
+import FileInput from '@commonComponents/inputs/FileInput/FileInput';
 
 // @Styles
 import { OptionsFormContainer } from './Home.styles';
@@ -19,7 +19,7 @@ const OptionsForm = ({ qrDetails, setQrDetails }: OptionsFormProps) => {
   const [fileError, setFileError] = useState<string>('');
 
   // Handles changes in the form properties based on the input type
-  // TECH DEBT: Enhance this mechanism to handle different input types more gracefully
+  // Tech Debt: Enhance this mechanism to handle different input types more gracefully
   const handleChangeForm =
     (propertyName: keyof QRForm) =>
     (

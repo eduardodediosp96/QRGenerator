@@ -1,13 +1,23 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { Breakpoint } from '@theme/Theme.types';
-import TextInput from '@commonComponents/TextInput/TextInput';
-import { UploadIcon } from '@icons';
-import { CommonInputProps, TextInputSize } from '@commonComponents/commonTypes';
+
+// @Components
+import TextInput from '@commonComponents/inputs/TextInput/TextInput';
 import Typography from '@commonComponents/Typography/Typography';
 
-const DEFAULT_ALLOWED_FILE_TYPES = ['jpg', 'png', 'svg', 'pdf'];
+// @Icons
+import { UploadIcon } from '@icons';
 
+// @Theme
+import { Breakpoint } from '@theme/Theme.types';
+
+// @Types
+import {
+  CommonInputProps,
+  TextInputSize,
+} from '@commonComponents/inputs/InputTypes';
+
+const DEFAULT_ALLOWED_FILE_TYPES = ['jpg', 'png', 'svg'];
 const FileInputContainer = styled.div`
   width: 100%;
   display: flex;
@@ -30,11 +40,12 @@ const StyledFileInput = styled.input`
   }
 `;
 
-const getColorBoxMeasures = () => ({
+// Tech Debt: https://github.com/eduardodediosp96/QRGenerator/pull/3
+const getUploadIconMeasures = {
   [TextInputSize.SMALL]: '0.75rem',
   [TextInputSize.MEDIUM]: '1.5rem',
   [TextInputSize.LARGE]: '1.75rem',
-});
+};
 
 interface FileInputProps {
   size: TextInputSize;
@@ -45,14 +56,13 @@ const StyledUploadIcon = styled(UploadIcon)<FileInputProps>`
   top: 50%;
   transform: translateY(-50%);
   right: 1rem;
-  width: ${(props) => getColorBoxMeasures()[props.size]};
-  height: ${(props) => getColorBoxMeasures()[props.size]};
+  width: ${(props) => getUploadIconMeasures[props.size]};
+  height: ${(props) => getUploadIconMeasures[props.size]};
   pointer-events: none;
 `;
 
-interface ColorPickerProperties extends CommonInputProps {
+interface FileInputProperties extends CommonInputProps {
   accept?: readonly string[];
-  size?: TextInputSize;
 }
 
 const FileInput = ({
@@ -63,25 +73,16 @@ const FileInput = ({
   error,
   onChange = () => {},
   size = TextInputSize.MEDIUM,
-}: ColorPickerProperties) => {
+}: FileInputProperties) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  //   const [fileError, setFileError] = useState<string>('');
+  // Tech Debt: We should implement error handling for this file input in case the files are loaded incorrectly.
+  // const [fileError, setFileError] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const joinedAcceptTypes = accept.join(',');
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-
-    // Check if a file is selected
-    if (!file) {
-      setSelectedFile(null);
-      //   setFileError('Please select a file.');
-      return;
-    }
-
-    // Set selected file
+    const file = event.target.files?.[0] ?? null;
     setSelectedFile(file);
-    // setFileError('');
     onChange(event);
   };
 
