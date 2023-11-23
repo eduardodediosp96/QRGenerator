@@ -1,9 +1,12 @@
-import { TextInputSize } from '@commonComponents/TextInput/TextInput.d';
-import { OptionsFormContainer } from './Home.styles';
-import ColorInput from '@commonComponents/ColorInput/ColorInput';
-import TextInput from '@commonComponents/TextInput/TextInput';
-import FileInput from '@commonComponents/FileInput/FileInput';
 import { useState } from 'react';
+
+// @Components
+import ColorInput from '@commonComponents/inputs/ColorInput/ColorInput';
+import FileInput from '@commonComponents/inputs/FileInput/FileInput';
+import TextInput from '@commonComponents/inputs/TextInput/TextInput';
+
+// @Styles
+import { OptionsFormContainer } from './Home.styles';
 
 interface QRForm {
   size: string;
@@ -21,15 +24,12 @@ const OptionsForm = () => {
   });
 
   // Handles changes in the form properties based on the input type
-  // TECH DEBT: Enhance this mechanism to handle different input types more gracefully
+  // Tech Debt: Enhance this mechanism to handle different input types more gracefully
   const handleChangeForm =
     (propertyName: keyof QRForm) =>
     (
       event: React.ChangeEvent<
-        | HTMLInputElement
-        | HTMLTextAreaElement
-        | HTMLSelectElement
-        | HTMLInputElement
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
       >,
     ) => {
       // Extract the input target and handle different input types accordingly

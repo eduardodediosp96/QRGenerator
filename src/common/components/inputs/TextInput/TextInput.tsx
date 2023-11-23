@@ -1,9 +1,14 @@
 import { Theme, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { CssProps } from '@theme/Theme.types';
-import { StyledTextInputProps } from './TextInput.d';
-import { CommonInputProps, TextInputSize } from '@commonComponents/commonTypes';
 
+// @Types
+import {
+  CommonInputProps,
+  TextInputSize,
+} from '@commonComponents/InputTypes.d';
+import { CssProps } from '@theme/Theme.types';
+
+// Tech Debt: https://github.com/eduardodediosp96/QRGenerator/pull/3
 const TextInputSizeCssProps = (
   theme: Theme,
 ): Record<TextInputSize, CssProps> => ({
@@ -23,6 +28,10 @@ const TextInputSizeCssProps = (
     ...theme.typography['body1'],
   },
 });
+
+export interface StyledTextInputProps {
+  size?: TextInputSize;
+}
 
 const TextInputStyle = ({
   size = TextInputSize.MEDIUM,
@@ -45,6 +54,7 @@ const TextInput = ({
   id,
   label,
   placeholder,
+  size,
   value,
   onBlur,
   onClick,
@@ -68,6 +78,7 @@ const TextInput = ({
         onKeyDown={onKeyDown}
         readOnly={readOnly}
         aria-describedby={ariaDescribedBy}
+        size={size}
       />
     </>
   );
