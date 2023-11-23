@@ -12,10 +12,17 @@ import { MainContainer, MainLayout } from '../Layout/Layout.styles';
 import getTheme from '@theme/Theme';
 
 // @Types
+import { QRForm } from '@components/Home/Home.types';
 import { ThemeMode } from '@theme/Theme.types';
 
 const Layout = () => {
   const [colorTheme, setColorTheme] = useState<ThemeMode>(ThemeMode.DARK);
+  const [qrDetails, setQrDetails] = useState<QRForm>({
+    size: 200,
+    fgColor: '#000',
+    bgColor: '#fff',
+    logoImage: undefined,
+  });
   const theme = getTheme(colorTheme);
 
   return (
@@ -23,7 +30,7 @@ const Layout = () => {
       <MainLayout>
         <MainContainer>
           <Navbar colorTheme={colorTheme} setColorTheme={setColorTheme} />
-          <Home />
+          <Home qrDetails={qrDetails} setQrDetails={setQrDetails} />
         </MainContainer>
       </MainLayout>
     </ThemeProvider>

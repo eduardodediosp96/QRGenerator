@@ -1,24 +1,16 @@
-import { TextInputSize } from '@commonComponents/TextInput/TextInput.d';
-import { OptionsFormContainer } from './Home.styles';
+// @Components
 import ColorInput from '@commonComponents/ColorInput/ColorInput';
 import TextInput from '@commonComponents/TextInput/TextInput';
 import FileInput from '@commonComponents/FileInput/FileInput';
-import { useState } from 'react';
 
-interface QRForm {
-  size: string;
-  color: string;
-  background: string;
-  file: File | undefined;
-}
+// @Styles
+import { OptionsFormContainer } from './Home.styles';
 
-const OptionsForm = () => {
-  const [form, setForm] = useState<QRForm>({
-    size: '0px',
-    color: '',
-    background: '',
-    file: undefined,
-  });
+// @Types
+import { OptionsFormProps, QRForm } from './Home.types';
+
+const OptionsForm = ({ qrDetails, setQrDetails }: OptionsFormProps) => {
+  const { size, fgColor, bgColor } = qrDetails;
 
   // Handles changes in the form properties based on the input type
   // TECH DEBT: Enhance this mechanism to handle different input types more gracefully
@@ -34,10 +26,10 @@ const OptionsForm = () => {
     ) => {
       // Extract the input target and handle different input types accordingly
       const target = event.target as HTMLInputElement;
-      setForm((prevForm) => ({
-        ...prevForm,
+      setQrDetails((prevDetails) => ({
+        ...prevDetails,
         [propertyName]:
-          propertyName === 'file'
+          propertyName === 'logoImage'
             ? target.files
               ? target.files[0]
               : undefined
@@ -47,14 +39,19 @@ const OptionsForm = () => {
 
   return (
     <OptionsFormContainer>
-      <TextInput onChange={handleChangeForm('size')}></TextInput>
-      <ColorInput onChange={handleChangeForm('color')}></ColorInput>
-      <ColorInput onChange={handleChangeForm('background')}></ColorInput>
-      <FileInput onChange={handleChangeForm('file')}></FileInput>
-      <div>size: {form.size}</div>
-      <div>color: {form.color}</div>
-      <div>background: {form.background}</div>
-      <div>fileName: {form.file?.name || undefined}</div>
+      <TextInput
+        onChange={handleChangeForm('size')}
+        value={size.toString()}
+      ></TextInput>
+      <ColorInput
+        onChange={handleChangeForm('fgColor')}
+        value={fgColor}
+      ></ColorInput>
+      <ColorInput
+        onChange={handleChangeForm('bgColor')}
+        value={bgColor}
+      ></ColorInput>
+      <FileInput onChange={handleChangeForm('logoImage')}></FileInput>
     </OptionsFormContainer>
   );
 };

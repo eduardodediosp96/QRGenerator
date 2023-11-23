@@ -9,12 +9,19 @@ export const HomeContainer = styled.div`
 `;
 
 export const QRContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.backgroundWhite};
+  background-color: ${({ theme }) => theme.palette.background};
+  border: 1px solid ${({ theme }) => theme.palette.secondary};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 4px;
 
-  img {
-    width: 150px;
-    height: 150px;
+  height: 200px;
+  width: 200px;
+
+  canvas {
+    max-height: 200px;
+    max-width: 200px;
   }
 `;
 

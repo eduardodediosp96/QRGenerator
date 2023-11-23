@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 // @Components
+import { QRCode } from 'react-qrcode-logo';
 import OptionsForm from './OptionsForm';
 import Typography from '@commonComponents/Typography/Typography';
 
@@ -11,18 +12,26 @@ import { ChevronIcon } from '@icons';
 import { Button } from '@styles/Styles';
 import { HomeContainer, MoreOptionsLabel, QRContainer } from './Home.styles';
 
-// TODO: DELETE
-import QRImage from '@images/qr.png';
+// @Types
+import { OptionsFormProps } from './Home.types';
 
-const Home = () => {
+const Home = (qrForm: OptionsFormProps) => {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
 
   const handleShowMoreOptions = () => setShowMoreOptions((prev) => !prev);
 
+  const { size, fgColor, bgColor } = qrForm.qrDetails;
+
   return (
     <HomeContainer>
       <QRContainer>
-        <img src={QRImage} alt="QR" />
+        {/* TODO: Add logo */}
+        <QRCode
+          value="https://github.com/gcoro/react-qrcode-logo"
+          size={size}
+          fgColor={fgColor}
+          bgColor={bgColor}
+        />
       </QRContainer>
       <MoreOptionsLabel
         rotate={!showMoreOptions}
@@ -33,7 +42,7 @@ const Home = () => {
         </Typography>
         <ChevronIcon />
       </MoreOptionsLabel>
-      {showMoreOptions && <OptionsForm />}
+      {showMoreOptions && <OptionsForm {...qrForm} />}
       <Button>
         <Typography variant="label">Generate QR</Typography>
       </Button>
