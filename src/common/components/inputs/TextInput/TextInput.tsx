@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import {
   CommonInputProps,
   TextInputSize,
-} from '@commonComponents/InputTypes.d';
+} from '@commonComponents/inputs/InputTypes';
 import { CssProps } from '@theme/Theme.types';
 
 // Tech Debt: https://github.com/eduardodediosp96/QRGenerator/pull/3

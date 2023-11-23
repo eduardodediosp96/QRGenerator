@@ -2,10 +2,6 @@ import { ChangeEvent, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 
 // @Components
-import {
-  CommonInputProps,
-  TextInputSize,
-} from '@commonComponents/InputTypes.d';
 import TextInput from '@commonComponents/inputs/TextInput/TextInput';
 
 // @Icons
@@ -13,6 +9,12 @@ import { UploadIcon } from '@icons';
 
 // @Theme
 import { Breakpoint } from '@theme/Theme.types';
+
+// @Types
+import {
+  CommonInputProps,
+  TextInputSize,
+} from '@commonComponents/inputs/InputTypes';
 
 const DEFAULT_ALLOWED_FILE_TYPES = ['jpg', 'png', 'svg'];
 const FileInputContainer = styled.div`

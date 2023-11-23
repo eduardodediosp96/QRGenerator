@@ -1,15 +1,17 @@
 import { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 
+// @Components
+import TextInput from '@commonComponents/inputs/TextInput/TextInput';
+
 // @Theme
 import { Breakpoint } from '@theme/Theme.types';
 
-// @Components
+// @Types
 import {
   CommonInputProps,
   TextInputSize,
-} from '@commonComponents/InputTypes.d';
-import TextInput from '@commonComponents/inputs/TextInput/TextInput';
+} from '@commonComponents/inputs/InputTypes';
 
 const ALLOWED_KEYS = ['Enter', 'Escape'];
 
