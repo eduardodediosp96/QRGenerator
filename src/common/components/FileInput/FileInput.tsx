@@ -4,6 +4,7 @@ import { Breakpoint } from '@theme/Theme.types';
 import TextInput from '@commonComponents/TextInput/TextInput';
 import { UploadIcon } from '@icons';
 import { CommonInputProps, TextInputSize } from '@commonComponents/commonTypes';
+import Typography from '@commonComponents/Typography/Typography';
 
 const DEFAULT_ALLOWED_FILE_TYPES = ['jpg', 'png', 'svg', 'pdf'];
 
@@ -59,6 +60,7 @@ const FileInput = ({
   placeholder,
   ariaDescribedBy,
   accept = DEFAULT_ALLOWED_FILE_TYPES,
+  error,
   onChange = () => {},
   size = TextInputSize.MEDIUM,
 }: ColorPickerProperties) => {
@@ -88,27 +90,34 @@ const FileInput = ({
   };
 
   return (
-    <FileInputContainer aria-label="File Picker">
-      <StyledFileInput
-        type="file"
-        ref={fileInputRef}
-        id="fileInput"
-        onChange={handleFileChange}
-        accept={joinedAcceptTypes}
-      />
-      <TextInput
-        size={size}
-        value={selectedFile?.name ?? ''}
-        onClick={handleTextInputClick}
-        aria-label="File name"
-        id={id}
-        placeholder={placeholder}
-        onChange={onChange}
-        aria-describedby={ariaDescribedBy}
-        readOnly
-      />
-      <StyledUploadIcon size={size} />
-    </FileInputContainer>
+    <div>
+      <FileInputContainer aria-label="File Picker">
+        <StyledFileInput
+          type="file"
+          ref={fileInputRef}
+          id="fileInput"
+          onChange={handleFileChange}
+          accept={joinedAcceptTypes}
+        />
+        <TextInput
+          size={size}
+          value={selectedFile?.name ?? ''}
+          onClick={handleTextInputClick}
+          aria-label="File name"
+          id={id}
+          placeholder={placeholder}
+          onChange={onChange}
+          aria-describedby={ariaDescribedBy}
+          readOnly
+        />
+        <StyledUploadIcon size={size} />
+      </FileInputContainer>
+      {error && (
+        <Typography variant="error" margin="1 0" as="div">
+          {error}
+        </Typography>
+      )}
+    </div>
   );
 };
 

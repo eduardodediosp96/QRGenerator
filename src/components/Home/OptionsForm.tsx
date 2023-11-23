@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 // @Components
 import ColorInput from '@commonComponents/ColorInput/ColorInput';
 import TextInput from '@commonComponents/TextInput/TextInput';
@@ -9,8 +11,12 @@ import { OptionsFormContainer } from './Home.styles';
 // @Types
 import { OptionsFormProps, QRForm } from './Home.types';
 
+// @Utils
+import { readFile } from '@utils/utils';
+
 const OptionsForm = ({ qrDetails, setQrDetails }: OptionsFormProps) => {
   const { size, fgColor, bgColor } = qrDetails;
+  const [fileError, setFileError] = useState<string>('');
 
   // Handles changes in the form properties based on the input type
   // TECH DEBT: Enhance this mechanism to handle different input types more gracefully
@@ -18,24 +24,33 @@ const OptionsForm = ({ qrDetails, setQrDetails }: OptionsFormProps) => {
     (propertyName: keyof QRForm) =>
     (
       event: React.ChangeEvent<
-        | HTMLInputElement
-        | HTMLTextAreaElement
-        | HTMLSelectElement
-        | HTMLInputElement
+        HTMLTextAreaElement | HTMLSelectElement | HTMLInputElement
       >,
     ) => {
       // Extract the input target and handle different input types accordingly
       const target = event.target as HTMLInputElement;
       setQrDetails((prevDetails) => ({
         ...prevDetails,
-        [propertyName]:
-          propertyName === 'logoImage'
-            ? target.files
-              ? target.files[0]
-              : undefined
-            : target.value,
+        [propertyName]: target.value,
       }));
     };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    try {
+      const file = event.target.files?.[0];
+      const fileData = await readFile(file);
+      setQrDetails((prevDetails) => ({
+        ...prevDetails,
+        logoImage: fileData,
+      }));
+    } catch (error) {
+      setFileError(
+        (error as { message?: string }).message ?? 'Something went wrong',
+      );
+    }
+  };
 
   return (
     <OptionsFormContainer>
@@ -51,7 +66,7 @@ const OptionsForm = ({ qrDetails, setQrDetails }: OptionsFormProps) => {
         onChange={handleChangeForm('bgColor')}
         value={bgColor}
       ></ColorInput>
-      <FileInput onChange={handleChangeForm('logoImage')}></FileInput>
+      <FileInput onChange={handleFileChange} error={fileError}></FileInput>
     </OptionsFormContainer>
   );
 };

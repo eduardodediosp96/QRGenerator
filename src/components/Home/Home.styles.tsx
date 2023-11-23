@@ -47,5 +47,4 @@ export const OptionsFormContainer = styled.div`
   flex-direction: column;
   width: 100%;
   gap: ${({ theme }) => theme.spacing(1)};
-  padding: ${({ theme }) => theme.spacing(2)};
 `;

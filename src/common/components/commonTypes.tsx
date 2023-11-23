@@ -19,4 +19,5 @@ export interface CommonInputProps {
   ariaDescribedBy?: string;
   size?: TextInputSize;
   readOnly?: boolean;
+  error?: string;
 }

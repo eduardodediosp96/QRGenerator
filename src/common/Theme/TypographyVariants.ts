@@ -38,4 +38,8 @@ export const getTypography = (themeColor: ThemeMode) => ({
     color: palette[themeColor].secondary,
     lineHeight: 1.5,
   },
+  error: {
+    fontSize: fontSizes.small,
+    color: colors.error,
+  },
 });

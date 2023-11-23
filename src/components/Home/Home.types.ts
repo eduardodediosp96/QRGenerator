@@ -2,7 +2,7 @@ export interface QRForm {
   size: number;
   fgColor: string;
   bgColor: string;
-  logoImage: File | undefined;
+  logoImage: string | undefined;
 }
 
 export interface OptionsFormProps {

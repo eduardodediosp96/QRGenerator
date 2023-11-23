@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // @Components
 import { QRCode } from 'react-qrcode-logo';
@@ -16,21 +16,27 @@ import { HomeContainer, MoreOptionsLabel, QRContainer } from './Home.styles';
 import { OptionsFormProps } from './Home.types';
 
 const Home = (qrForm: OptionsFormProps) => {
+  const [currentUrl, setCurrentUrl] = useState<string>('');
   const [showMoreOptions, setShowMoreOptions] = useState(false);
 
   const handleShowMoreOptions = () => setShowMoreOptions((prev) => !prev);
 
-  const { size, fgColor, bgColor } = qrForm.qrDetails;
+  useEffect(() => {
+    // Get the current tab url
+    chrome.tabs?.query({ active: true, currentWindow: true }, (tabs) => {
+      const { url } = tabs[0];
+      setCurrentUrl(url || '');
+    });
+  }, []);
 
   return (
     <HomeContainer>
       <QRContainer>
         {/* TODO: Add logo */}
         <QRCode
-          value="https://github.com/gcoro/react-qrcode-logo"
-          size={size}
-          fgColor={fgColor}
-          bgColor={bgColor}
+          value={currentUrl}
+          removeQrCodeBehindLogo
+          {...qrForm.qrDetails}
         />
       </QRContainer>
       <MoreOptionsLabel
