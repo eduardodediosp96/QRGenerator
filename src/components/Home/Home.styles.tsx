@@ -38,7 +38,6 @@ export const MoreOptionsLabel = styled.div<{ rotate: boolean }>`
 export const OptionsFormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: ${({ theme }) => theme.spacing(1)};
   padding: ${({ theme }) => theme.spacing(2)};
 `;
