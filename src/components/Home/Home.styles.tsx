@@ -5,16 +5,26 @@ export const HomeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme.spacing(2)};
-  padding: ${({ theme }) => theme.spacing(3)};
+  padding: ${({ theme }) =>
+    `${theme.spacing(1)} ${theme.spacing(3)} ${theme.spacing(
+      2,
+    )} ${theme.spacing(3)}`};
 `;
 
 export const QRContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.backgroundWhite};
-  border-radius: 4px;
+  background-color: ${({ theme }) => theme.palette.background};
+  border: 1px solid ${({ theme }) => theme.palette.secondary};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: ${({ theme }) => theme.shapes.rounded[1]};
 
-  img {
-    width: 150px;
-    height: 150px;
+  height: 11.25rem;
+  width: 11.25rem;
+
+  canvas {
+    max-height: 11.25rem;
+    max-width: 11.25rem;
   }
 `;
 
@@ -40,5 +50,4 @@ export const OptionsFormContainer = styled.div`
   flex-direction: column;
   width: 100%;
   gap: ${({ theme }) => theme.spacing(1)};
-  padding: ${({ theme }) => theme.spacing(2)};
 `;

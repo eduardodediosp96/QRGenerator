@@ -10,7 +10,6 @@ export enum TextInputSize {
 export interface CommonInputProps {
   id?: string;
   label?: string;
-  placeholder?: string;
   value?: string;
   onClick?: (event: MouseEvent<HTMLInputElement>) => void;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -18,6 +17,8 @@ export interface CommonInputProps {
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
   ariaDescribedBy?: string;
+  endAdornment?: React.ReactNode;
   size?: TextInputSize;
   readOnly?: boolean;
+  error?: string;
 }

@@ -9,6 +9,7 @@ export const colors = {
   secondaryBlack: '#60646C',
   secondaryWhite: '#A1A1AA',
   accents: ['#F4BE00'],
+  error: '#CB2024',
 };
 
 export const palette: Record<ThemeMode, PaletteType> = {

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // @Components
+import { QRCode } from 'react-qrcode-logo';
 import OptionsForm from './OptionsForm';
 import Typography from '@commonComponents/Typography/Typography';
 
@@ -11,18 +12,61 @@ import { ChevronIcon } from '@icons';
 import { Button } from '@styles/Styles';
 import { HomeContainer, MoreOptionsLabel, QRContainer } from './Home.styles';
 
-// TODO: DELETE
-import QRImage from '@images/qr.png';
+// @Types
+import { QRForm } from './Home.types';
+
+// @Utils
+import { readFile } from '@utils/utils';
+
+const defaultQrDetails: QRForm = {
+  size: 200,
+  fgColor: '#000',
+  bgColor: '#fff',
+  logoImage: undefined,
+};
 
 const Home = () => {
+  const [currentUrl, setCurrentUrl] = useState<string>('');
   const [showMoreOptions, setShowMoreOptions] = useState(false);
+  const [fileError, setFileError] = useState('');
+  const [qrDetails, setQrDetails] = useState(defaultQrDetails);
 
   const handleShowMoreOptions = () => setShowMoreOptions((prev) => !prev);
+
+  useEffect(() => {
+    // Get the current tab url
+    chrome.tabs?.query({ active: true, currentWindow: true }, (tabs) => {
+      const { url } = tabs[0];
+      setCurrentUrl(url || '');
+    });
+  }, []);
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    try {
+      const file = event.target.files?.[0];
+      const fileData = await readFile(file, [
+        'image/jpeg',
+        'image/png',
+        'image/svg+xml',
+      ]);
+      setQrDetails((prevDetails) => ({
+        ...prevDetails,
+        logoImage: fileData,
+      }));
+      setFileError('');
+    } catch (error) {
+      setFileError(
+        (error as { message?: string }).message ?? 'Something went wrong',
+      );
+    }
+  };
 
   return (
     <HomeContainer>
       <QRContainer>
-        <img src={QRImage} alt="QR" />
+        <QRCode value={currentUrl} removeQrCodeBehindLogo {...qrDetails} />
       </QRContainer>
       <MoreOptionsLabel
         rotate={!showMoreOptions}
@@ -33,7 +77,14 @@ const Home = () => {
         </Typography>
         <ChevronIcon />
       </MoreOptionsLabel>
-      {showMoreOptions && <OptionsForm />}
+      {showMoreOptions && (
+        <OptionsForm
+          handleFileChange={handleFileChange}
+          fileError={fileError}
+          qrDetails={qrDetails}
+          setQrDetails={setQrDetails}
+        />
+      )}
       <Button>
         <Typography variant="label">Generate QR</Typography>
       </Button>

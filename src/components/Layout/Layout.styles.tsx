@@ -16,5 +16,5 @@ export const MainContainer = styled('div')`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 0 ${(props) => props.theme.spacing(2)};
+  padding: 0 ${(props) => props.theme.spacing(1)};
 `;

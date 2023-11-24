@@ -14,9 +14,11 @@
     "@emotion/styled": "^11.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-qrcode-logo": "^2.9.0",
     "react-router-dom": "^6.17.0"
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.253",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.10.0",

@@ -1,60 +1,65 @@
-import { useState } from 'react';
-
 // @Components
 import ColorInput from '@commonComponents/inputs/ColorInput/ColorInput';
-import FileInput from '@commonComponents/inputs/FileInput/FileInput';
 import TextInput from '@commonComponents/inputs/TextInput/TextInput';
+import FileInput from '@commonComponents/inputs/FileInput/FileInput';
 
 // @Styles
 import { OptionsFormContainer } from './Home.styles';
 
-interface QRForm {
-  size: string;
-  color: string;
-  background: string;
-  file: File | undefined;
-}
+// @Types
+import { OptionsFormProps, QRForm } from './Home.types';
 
-const OptionsForm = () => {
-  const [form, setForm] = useState<QRForm>({
-    size: '0px',
-    color: '',
-    background: '',
-    file: undefined,
-  });
+const OptionsForm = ({
+  handleFileChange,
+  fileError,
+  qrDetails,
+  setQrDetails,
+}: OptionsFormProps) => {
+  const { size, fgColor, bgColor } = qrDetails;
 
-  // Handles changes in the form properties based on the input type
-  // Tech Debt: Enhance this mechanism to handle different input types more gracefully
-  const handleChangeForm =
+  // TECH DEBT: Fix
+  const handleChangeSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target as HTMLInputElement;
+    const isNumber = /^\d+$/.test(value);
+    if (!isNumber && !!value.length) return;
+    setQrDetails((prevDetails) => ({
+      ...prevDetails,
+      size: !!value.length ? Number(value) : undefined,
+    }));
+  };
+
+  const handleChangeColor =
     (propertyName: keyof QRForm) =>
-    (
-      event: React.ChangeEvent<
-        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-      >,
-    ) => {
-      // Extract the input target and handle different input types accordingly
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       const target = event.target as HTMLInputElement;
-      setForm((prevForm) => ({
-        ...prevForm,
-        [propertyName]:
-          propertyName === 'file'
-            ? target.files
-              ? target.files[0]
-              : undefined
-            : target.value,
+      setQrDetails((prevDetails) => ({
+        ...prevDetails,
+        [propertyName]: target.value,
       }));
     };
 
   return (
     <OptionsFormContainer>
-      <TextInput onChange={handleChangeForm('size')}></TextInput>
-      <ColorInput onChange={handleChangeForm('color')}></ColorInput>
-      <ColorInput onChange={handleChangeForm('background')}></ColorInput>
-      <FileInput onChange={handleChangeForm('file')}></FileInput>
-      <div>size: {form.size}</div>
-      <div>color: {form.color}</div>
-      <div>background: {form.background}</div>
-      <div>fileName: {form.file?.name || undefined}</div>
+      <TextInput
+        label="Size"
+        onChange={handleChangeSize}
+        value={size?.toString()}
+      />
+      <ColorInput
+        defaultColor={fgColor}
+        label="Color"
+        onChange={handleChangeColor('fgColor')}
+      />
+      <ColorInput
+        defaultColor={bgColor}
+        label="Background Color"
+        onChange={handleChangeColor('bgColor')}
+      />
+      <FileInput
+        label="Logo Image"
+        onChange={handleFileChange}
+        error={fileError}
+      />
     </OptionsFormContainer>
   );
 };

@@ -1,60 +1,31 @@
-import { Theme, useTheme } from '@emotion/react';
-import styled from '@emotion/styled';
+// @Common components
+import Typography from '@commonComponents/Typography/Typography';
 
 // @Types
 import {
   CommonInputProps,
   TextInputSize,
 } from '@commonComponents/inputs/InputTypes';
-import { CssProps } from '@theme/Theme.types';
 
-// Tech Debt: https://github.com/eduardodediosp96/QRGenerator/pull/3
-const TextInputSizeCssProps = (
-  theme: Theme,
-): Record<TextInputSize, CssProps> => ({
-  [TextInputSize.SMALL]: {
-    height: '2rem',
-    padding: theme.spacing(1.5),
-    ...theme.typography['body2'],
-  },
-  [TextInputSize.MEDIUM]: {
-    height: '3rem',
-    padding: theme.spacing(2),
-    ...theme.typography['body2'],
-  },
-  [TextInputSize.LARGE]: {
-    height: '4rem',
-    padding: theme.spacing(3),
-    ...theme.typography['body1'],
-  },
-});
+// @Styles
+import {
+  InputWrapper,
+  TextInputContainer,
+  TextInputLabel,
+  StyledTextInput,
+} from '../InputStyles';
 
 export interface StyledTextInputProps {
+  hasValue?: boolean;
   size?: TextInputSize;
 }
 
-const TextInputStyle = ({
-  size = TextInputSize.MEDIUM,
-}: StyledTextInputProps) => {
-  const theme = useTheme();
-  return {
-    width: '100%',
-    border: `1px solid ${theme.palette.contrastBackground}`,
-    background: theme.palette.background,
-    boxShadow: theme.shadows[1],
-    borderRadius: theme.shapes.rounded[1],
-    cursor: 'pointer',
-    ...TextInputSizeCssProps(theme)[size],
-  };
-};
-
-const StyledTextInput = styled('input')(TextInputStyle);
-
 const TextInput = ({
   id,
+  error,
+  endAdornment,
   label,
-  placeholder,
-  size,
+  size = TextInputSize.MEDIUM,
   value,
   onBlur,
   onClick,
@@ -64,23 +35,34 @@ const TextInput = ({
   ariaDescribedBy,
   readOnly,
 }: CommonInputProps) => {
+  const hasValue = !!value?.length;
   return (
-    <>
-      <label htmlFor={id}>{label}</label>
-      <StyledTextInput
-        id={id}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        onClick={onClick}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onKeyDown={onKeyDown}
-        readOnly={readOnly}
-        aria-describedby={ariaDescribedBy}
-        size={size}
-      />
-    </>
+    <InputWrapper>
+      <TextInputContainer>
+        <TextInputLabel htmlFor={id} hasValue={hasValue} size={size}>
+          {label}
+        </TextInputLabel>
+        <StyledTextInput
+          hasValue={hasValue}
+          id={id}
+          value={value}
+          onChange={onChange}
+          onClick={onClick}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onKeyDown={onKeyDown}
+          readOnly={readOnly}
+          aria-describedby={ariaDescribedBy}
+          size={size}
+        />
+        {endAdornment}
+      </TextInputContainer>
+      {error && (
+        <Typography variant="error" margin="1 0 0 0" as="div">
+          {error}
+        </Typography>
+      )}
+    </InputWrapper>
   );
 };
 

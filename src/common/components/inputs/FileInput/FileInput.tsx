@@ -7,6 +7,9 @@ import TextInput from '@commonComponents/inputs/TextInput/TextInput';
 // @Icons
 import { UploadIcon } from '@icons';
 
+// @Styles
+import { getEndAdornmentMeasures } from '../InputStyles';
+
 // @Theme
 import { Breakpoint } from '@theme/Theme.types';
 
@@ -39,13 +42,6 @@ const StyledFileInput = styled.input`
   }
 `;
 
-// Tech Debt: https://github.com/eduardodediosp96/QRGenerator/pull/3
-const getUploadIconMeasures = {
-  [TextInputSize.SMALL]: '0.75rem',
-  [TextInputSize.MEDIUM]: '1.5rem',
-  [TextInputSize.LARGE]: '1.75rem',
-};
-
 interface FileInputProps {
   size: TextInputSize;
 }
@@ -55,28 +51,40 @@ const StyledUploadIcon = styled(UploadIcon)<FileInputProps>`
   top: 50%;
   transform: translateY(-50%);
   right: 1rem;
-  width: ${(props) => getUploadIconMeasures[props.size]};
-  height: ${(props) => getUploadIconMeasures[props.size]};
+  width: ${(props) => getEndAdornmentMeasures[props.size]};
+  height: ${(props) => getEndAdornmentMeasures[props.size]};
   pointer-events: none;
 `;
 
 interface FileInputProperties extends CommonInputProps {
   accept?: readonly string[];
+  maxCharacters?: number;
 }
 
 const FileInput = ({
   id,
-  placeholder,
+  error,
   ariaDescribedBy,
   accept = DEFAULT_ALLOWED_FILE_TYPES,
+  label,
+  maxCharacters = 20,
   onChange = () => {},
   size = TextInputSize.MEDIUM,
 }: FileInputProperties) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  // Tech Debt: We should implement error handling for this file input in case the files are loaded incorrectly.
-  // const [fileError, setFileError] = useState<string>('');
+
+  const getDisplayName = () => {
+    const fileName = selectedFile?.name ?? '';
+    if (fileName.length > maxCharacters) {
+      return `${fileName.substring(0, maxCharacters)}...`;
+    }
+    return fileName;
+  };
+
+  const displayName = getDisplayName();
+
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const joinedAcceptTypes = accept.join(',');
+  const joinedAcceptTypes = accept.join(', ');
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
@@ -88,6 +96,8 @@ const FileInput = ({
     fileInputRef?.current?.click();
   };
 
+  const endAdornment = <StyledUploadIcon size={size} />;
+
   return (
     <FileInputContainer aria-label="File Picker">
       <StyledFileInput
@@ -98,17 +108,18 @@ const FileInput = ({
         accept={joinedAcceptTypes}
       />
       <TextInput
+        error={error}
         size={size}
-        value={selectedFile?.name ?? ''}
+        value={displayName}
         onClick={handleTextInputClick}
+        label={label}
         aria-label="File name"
         id={id}
-        placeholder={placeholder}
         onChange={onChange}
+        endAdornment={endAdornment}
         aria-describedby={ariaDescribedBy}
         readOnly
       />
-      <StyledUploadIcon size={size} />
     </FileInputContainer>
   );
 };
