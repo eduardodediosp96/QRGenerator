@@ -17,14 +17,14 @@ export const QRContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.shapes.rounded[1]};
 
-  height: 180px;
-  width: 180px;
+  height: 11.25rem;
+  width: 11.25rem;
 
   canvas {
-    max-height: 180px;
-    max-width: 180px;
+    max-height: 11.25rem;
+    max-width: 11.25rem;
   }
 `;
 

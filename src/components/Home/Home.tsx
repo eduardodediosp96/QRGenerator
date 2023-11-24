@@ -13,16 +13,23 @@ import { Button } from '@styles/Styles';
 import { HomeContainer, MoreOptionsLabel, QRContainer } from './Home.styles';
 
 // @Types
-import { HomeProps } from './Home.types';
+import { QRForm } from './Home.types';
 
 // @Utils
 import { readFile } from '@utils/utils';
 
-const Home = (qrForm: HomeProps) => {
+const defaultQrDetails: QRForm = {
+  size: 200,
+  fgColor: '#000',
+  bgColor: '#fff',
+  logoImage: undefined,
+};
+
+const Home = () => {
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [fileError, setFileError] = useState('');
-  const { qrDetails, setQrDetails } = qrForm;
+  const [qrDetails, setQrDetails] = useState(defaultQrDetails);
 
   const handleShowMoreOptions = () => setShowMoreOptions((prev) => !prev);
 
@@ -59,11 +66,7 @@ const Home = (qrForm: HomeProps) => {
   return (
     <HomeContainer>
       <QRContainer>
-        <QRCode
-          value={currentUrl}
-          removeQrCodeBehindLogo
-          {...qrForm.qrDetails}
-        />
+        <QRCode value={currentUrl} removeQrCodeBehindLogo {...qrDetails} />
       </QRContainer>
       <MoreOptionsLabel
         rotate={!showMoreOptions}
