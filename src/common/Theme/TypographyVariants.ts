@@ -15,6 +15,7 @@ const fontSizes = {
   xxxlarge: '1.75rem',
 };
 
+// TECH DEBT: Improve typography names
 export const getTypography = (themeColor: ThemeMode) => ({
   title: {
     fontSize: fontSizes.xlarge,

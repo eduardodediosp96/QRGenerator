@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
-import { CssProps } from '@theme/Theme.types';
 import { Theme, useTheme } from '@emotion/react';
+
+// @Components
 import { StyledTextInputProps } from './TextInput/TextInput';
 
 // @Types
 import { TextInputSize } from './InputTypes';
+import { CssProps } from '@theme/Theme.types';
 
 export const TextInputContainer = styled.div`
   position: relative;
@@ -92,7 +94,6 @@ export const TextInputSizeCssProps = (
     ...theme.typography['body1'],
   },
 });
-
 
 export const TextInputStyle = ({
   hasValue = false,

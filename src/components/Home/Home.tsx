@@ -59,7 +59,6 @@ const Home = (qrForm: HomeProps) => {
   return (
     <HomeContainer>
       <QRContainer>
-        {/* TODO: Add logo */}
         <QRCode
           value={currentUrl}
           removeQrCodeBehindLogo

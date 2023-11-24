@@ -17,6 +17,7 @@ const OptionsForm = ({
 }: OptionsFormProps) => {
   const { size, fgColor, bgColor } = qrDetails;
 
+  // TECH DEBT: Fix
   const handleChangeSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target as HTMLInputElement;
     const isNumber = /^\d+$/.test(value);
