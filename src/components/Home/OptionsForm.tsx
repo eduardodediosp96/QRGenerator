@@ -17,16 +17,19 @@ const OptionsForm = ({
 }: OptionsFormProps) => {
   const { size, fgColor, bgColor } = qrDetails;
 
-  // Handles changes in the form properties based on the input type
-  // Tech Debt: Enhance this mechanism to handle different input types more gracefully
-  const handleChangeForm =
+  const handleChangeSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target as HTMLInputElement;
+    const isNumber = /^\d+$/.test(value);
+    if (!isNumber && !!value.length) return;
+    setQrDetails((prevDetails) => ({
+      ...prevDetails,
+      size: !!value.length ? Number(value) : undefined,
+    }));
+  };
+
+  const handleChangeColor =
     (propertyName: keyof QRForm) =>
-    (
-      event: React.ChangeEvent<
-        HTMLTextAreaElement | HTMLSelectElement | HTMLInputElement
-      >,
-    ) => {
-      // Extract the input target and handle different input types accordingly
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       const target = event.target as HTMLInputElement;
       setQrDetails((prevDetails) => ({
         ...prevDetails,
@@ -38,18 +41,18 @@ const OptionsForm = ({
     <OptionsFormContainer>
       <TextInput
         label="Size"
-        onChange={handleChangeForm('size')}
-        value={size.toString()}
+        onChange={handleChangeSize}
+        value={size?.toString()}
       />
       <ColorInput
         defaultColor={fgColor}
         label="Color"
-        onChange={handleChangeForm('fgColor')}
+        onChange={handleChangeColor('fgColor')}
       />
       <ColorInput
         defaultColor={bgColor}
         label="Background Color"
-        onChange={handleChangeForm('bgColor')}
+        onChange={handleChangeColor('bgColor')}
       />
       <FileInput
         label="Logo Image"

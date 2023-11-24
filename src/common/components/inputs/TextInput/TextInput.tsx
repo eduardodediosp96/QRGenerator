@@ -1,9 +1,13 @@
+// @Common components
+import Typography from '@commonComponents/Typography/Typography';
+
 // @Types
 import {
   CommonInputProps,
   TextInputSize,
 } from '@commonComponents/inputs/InputTypes';
-import Typography from '@commonComponents/Typography/Typography';
+
+// @Styles
 import {
   InputWrapper,
   TextInputContainer,
@@ -35,19 +39,12 @@ const TextInput = ({
   return (
     <InputWrapper>
       <TextInputContainer>
-        {hasValue && (
-          <TextInputLabel htmlFor={id} size={size}>
-            <Typography
-              variant={size === TextInputSize.LARGE ? 'body3' : 'inputLabel'}
-            >
-              {label}
-            </Typography>
-          </TextInputLabel>
-        )}
+        <TextInputLabel htmlFor={id} hasValue={hasValue} size={size}>
+          {label}
+        </TextInputLabel>
         <StyledTextInput
           hasValue={hasValue}
           id={id}
-          placeholder={label}
           value={value}
           onChange={onChange}
           onClick={onClick}

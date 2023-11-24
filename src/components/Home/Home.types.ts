@@ -1,5 +1,5 @@
 export interface QRForm {
-  size: number;
+  size: number | undefined;
   fgColor: string;
   bgColor: string;
   logoImage: string | undefined;

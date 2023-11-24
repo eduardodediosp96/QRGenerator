@@ -11,10 +11,42 @@ export const TextInputContainer = styled.div`
   width: 100%;
 `;
 
-export const TextInputLabel = styled.label<{ size: TextInputSize }>`
+export const InputLabelCssProps = (
+  hasValue: boolean,
+  theme: Theme,
+): Record<TextInputSize, CssProps> => ({
+  [TextInputSize.SMALL]: {
+    transform: !hasValue ? 'translateY(0.75rem)' : '',
+    top: '0.3rem',
+    ...theme.typography[hasValue ? 'inputLabel' : 'body3'],
+  },
+  [TextInputSize.MEDIUM]: {
+    transform: !hasValue ? 'translateY(0.9rem)' : '',
+    top: '0.4rem',
+    ...theme.typography[hasValue ? 'inputLabel' : 'body2'],
+  },
+  [TextInputSize.LARGE]: {
+    transform: !hasValue ? 'translateY(1.25rem)' : '',
+    top: '0.5rem',
+    ...theme.typography[hasValue ? 'body3' : 'body1'],
+  },
+});
+
+export const TextInputLabel = styled.label<{
+  hasValue: boolean;
+  size: TextInputSize;
+}>`
+  top: ${({ hasValue, size, theme }) =>
+    hasValue && InputLabelCssProps(hasValue, theme)[size].top};
+  color: ${({ hasValue, size, theme }) =>
+    InputLabelCssProps(hasValue, theme)[size].color};
   position: absolute;
-  top: ${({ size }) => (size === TextInputSize.LARGE ? '0.5rem' : '0.2rem')};
-  left: 0.5rem;
+  left: 1.1rem;
+  transform: ${({ hasValue, size, theme }) =>
+    InputLabelCssProps(hasValue, theme)[size].transform};
+  transition: transform 0.2s ease-in-out;
+  font-size: ${({ hasValue, size, theme }) =>
+    InputLabelCssProps(hasValue, theme)[size].fontSize};
 `;
 
 export const InputWrapper = styled.div`
@@ -60,6 +92,7 @@ export const TextInputSizeCssProps = (
     ...theme.typography['body1'],
   },
 });
+
 
 export const TextInputStyle = ({
   hasValue = false,
