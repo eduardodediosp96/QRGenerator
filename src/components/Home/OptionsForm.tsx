@@ -55,18 +55,25 @@ const OptionsForm = ({ qrDetails, setQrDetails }: OptionsFormProps) => {
   return (
     <OptionsFormContainer>
       <TextInput
+        label="Size"
         onChange={handleChangeForm('size')}
         value={size.toString()}
-      ></TextInput>
+      />
       <ColorInput
+        defaultColor={fgColor}
+        label="Color"
         onChange={handleChangeForm('fgColor')}
-        value={fgColor}
-      ></ColorInput>
+      />
       <ColorInput
+        defaultColor={bgColor}
+        label="Background Color"
         onChange={handleChangeForm('bgColor')}
-        value={bgColor}
-      ></ColorInput>
-      <FileInput onChange={handleFileChange} error={fileError}></FileInput>
+      />
+      <FileInput
+        label="Logo Image"
+        onChange={handleFileChange}
+        error={fileError}
+      />
     </OptionsFormContainer>
   );
 };

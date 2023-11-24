@@ -4,6 +4,9 @@ import styled from '@emotion/styled';
 // @Components
 import TextInput from '@commonComponents/inputs/TextInput/TextInput';
 
+// @Styles
+import { getEndAdornmentMeasures } from '../InputStyles';
+
 // @Theme
 import { Breakpoint } from '@theme/Theme.types';
 
@@ -43,20 +46,13 @@ const ColorInput = styled.input`
   }
 `;
 
-// Tech Debt:https://github.com/eduardodediosp96/QRGenerator/pull/3
-const getColorBoxMeasures = {
-  [TextInputSize.SMALL]: '0.75rem',
-  [TextInputSize.MEDIUM]: '1.5rem',
-  [TextInputSize.LARGE]: '1.75rem',
-};
-
 const ColorBox = styled.div<ColorBoxProps>`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   right: 1rem;
-  width: ${(props) => getColorBoxMeasures[props.size]};
-  height: ${(props) => getColorBoxMeasures[props.size]};
+  width: ${(props) => getEndAdornmentMeasures[props.size]};
+  height: ${(props) => getEndAdornmentMeasures[props.size]};
   background-color: ${(props) => props.color};
   pointer-events: none;
 `;
@@ -67,7 +63,8 @@ interface ColorPickerProperties extends CommonInputProps {
 
 const ColorPicker = ({
   id,
-  placeholder,
+  error,
+  label,
   ariaDescribedBy,
   defaultColor = '#ffffff',
   size = TextInputSize.MEDIUM,
@@ -110,6 +107,14 @@ const ColorPicker = ({
     onChange?.(e);
   };
 
+  const endAdornment = (
+    <ColorBox
+      color={color}
+      size={size}
+      aria-label="Preview of the selected color"
+    />
+  );
+
   return (
     <ColorPickerContainer aria-label="Color Picker">
       <ColorInput
@@ -121,20 +126,17 @@ const ColorPicker = ({
       />
       <TextInput
         id={id}
+        error={error}
+        endAdornment={endAdornment}
+        label={label}
         size={size}
         value={color}
         onClick={handleTextInputClick}
         onKeyDown={handleTextInputKeydown}
         aria-label="Color value"
         readOnly
-        placeholder={placeholder}
         onChange={onChange}
         aria-describedby={ariaDescribedBy}
-      />
-      <ColorBox
-        color={color}
-        size={size}
-        aria-label="Preview of the selected color"
       />
     </ColorPickerContainer>
   );

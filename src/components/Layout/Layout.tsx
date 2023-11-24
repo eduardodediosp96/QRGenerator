@@ -15,14 +15,16 @@ import getTheme from '@theme/Theme';
 import { QRForm } from '@components/Home/Home.types';
 import { ThemeMode } from '@theme/Theme.types';
 
+const defaultQrDetails: QRForm = {
+  size: 200,
+  fgColor: '#000',
+  bgColor: '#fff',
+  logoImage: undefined,
+};
+
 const Layout = () => {
   const [colorTheme, setColorTheme] = useState<ThemeMode>(ThemeMode.DARK);
-  const [qrDetails, setQrDetails] = useState<QRForm>({
-    size: 200,
-    fgColor: '#000',
-    bgColor: '#fff',
-    logoImage: undefined,
-  });
+  const [qrDetails, setQrDetails] = useState<QRForm>(defaultQrDetails);
   const theme = getTheme(colorTheme);
 
   return (
