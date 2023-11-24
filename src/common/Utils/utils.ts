@@ -1,7 +1,15 @@
-export const readFile = (file: File | undefined): Promise<string> => {
+export const readFile = (
+  file: File | undefined,
+  allowedFileTypes: string[],
+): Promise<string> => {
   return new Promise((resolve, reject) => {
     if (!file) {
       reject(new Error('No file provided.'));
+      return;
+    }
+
+    if (!allowedFileTypes.includes(file.type)) {
+      reject(new Error('Invalid file type.'));
       return;
     }
 

@@ -5,7 +5,10 @@ export const HomeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme.spacing(2)};
-  padding: ${({ theme }) => theme.spacing(3)};
+  padding: ${({ theme }) =>
+    `${theme.spacing(1)} ${theme.spacing(3)} ${theme.spacing(
+      2,
+    )} ${theme.spacing(3)}`};
 `;
 
 export const QRContainer = styled.div`
@@ -16,12 +19,12 @@ export const QRContainer = styled.div`
   align-items: center;
   border-radius: 4px;
 
-  height: 200px;
-  width: 200px;
+  height: 180px;
+  width: 180px;
 
   canvas {
-    max-height: 200px;
-    max-width: 200px;
+    max-height: 180px;
+    max-width: 180px;
   }
 `;
 

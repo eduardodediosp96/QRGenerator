@@ -61,7 +61,7 @@ const TextInput = ({
         {endAdornment}
       </TextInputContainer>
       {error && (
-        <Typography variant="error" margin="1 0" as="div">
+        <Typography variant="error" margin="1 0 0 0" as="div">
           {error}
         </Typography>
       )}

@@ -13,11 +13,16 @@ import { Button } from '@styles/Styles';
 import { HomeContainer, MoreOptionsLabel, QRContainer } from './Home.styles';
 
 // @Types
-import { OptionsFormProps } from './Home.types';
+import { HomeProps } from './Home.types';
 
-const Home = (qrForm: OptionsFormProps) => {
+// @Utils
+import { readFile } from '@utils/utils';
+
+const Home = (qrForm: HomeProps) => {
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [showMoreOptions, setShowMoreOptions] = useState(false);
+  const [fileError, setFileError] = useState('');
+  const { qrDetails, setQrDetails } = qrForm;
 
   const handleShowMoreOptions = () => setShowMoreOptions((prev) => !prev);
 
@@ -28,6 +33,28 @@ const Home = (qrForm: OptionsFormProps) => {
       setCurrentUrl(url || '');
     });
   }, []);
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    try {
+      const file = event.target.files?.[0];
+      const fileData = await readFile(file, [
+        'image/jpeg',
+        'image/png',
+        'image/svg+xml',
+      ]);
+      setQrDetails((prevDetails) => ({
+        ...prevDetails,
+        logoImage: fileData,
+      }));
+      setFileError('');
+    } catch (error) {
+      setFileError(
+        (error as { message?: string }).message ?? 'Something went wrong',
+      );
+    }
+  };
 
   return (
     <HomeContainer>
@@ -48,7 +75,14 @@ const Home = (qrForm: OptionsFormProps) => {
         </Typography>
         <ChevronIcon />
       </MoreOptionsLabel>
-      {showMoreOptions && <OptionsForm {...qrForm} />}
+      {showMoreOptions && (
+        <OptionsForm
+          handleFileChange={handleFileChange}
+          fileError={fileError}
+          qrDetails={qrDetails}
+          setQrDetails={setQrDetails}
+        />
+      )}
       <Button>
         <Typography variant="label">Generate QR</Typography>
       </Button>

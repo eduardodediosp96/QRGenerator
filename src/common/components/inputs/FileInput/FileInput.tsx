@@ -58,6 +58,7 @@ const StyledUploadIcon = styled(UploadIcon)<FileInputProps>`
 
 interface FileInputProperties extends CommonInputProps {
   accept?: readonly string[];
+  maxCharacters?: number;
 }
 
 const FileInput = ({
@@ -66,13 +67,24 @@ const FileInput = ({
   ariaDescribedBy,
   accept = DEFAULT_ALLOWED_FILE_TYPES,
   label,
+  maxCharacters = 20,
   onChange = () => {},
   size = TextInputSize.MEDIUM,
 }: FileInputProperties) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+  const getDisplayName = () => {
+    const fileName = selectedFile?.name ?? '';
+    if (fileName.length > maxCharacters) {
+      return `${fileName.substring(0, maxCharacters)}...`;
+    }
+    return fileName;
+  };
+
+  const displayName = getDisplayName();
+
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const joinedAcceptTypes = accept.join(',');
+  const joinedAcceptTypes = accept.join(', ');
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
@@ -98,7 +110,7 @@ const FileInput = ({
       <TextInput
         error={error}
         size={size}
-        value={selectedFile?.name ?? ''}
+        value={displayName}
         onClick={handleTextInputClick}
         label={label}
         aria-label="File name"
