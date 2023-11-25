@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
 
 // @Components
@@ -13,11 +13,24 @@ import getTheme from '@theme/Theme';
 
 // @Types
 import { ThemeMode } from '@theme/Theme.types';
+import { QRGeneratorStorage } from '@services/google/googleServices.types';
+import { getStorage, setStorage } from '@services/google/googleServices';
 
+const DEFAULT_THEME = ThemeMode.DARK;
 const Layout = () => {
-  const [colorTheme, setColorTheme] = useState<ThemeMode>(ThemeMode.DARK);
-  const theme = getTheme(colorTheme);
+  const [colorTheme, setColorTheme] = useState<ThemeMode>(DEFAULT_THEME);
+  const setDataFromStorage = (result: QRGeneratorStorage) => {
+    const { theme } = result;
+    const currentTheme = theme ?? colorTheme;
+    setColorTheme(currentTheme);
+    setStorage({ theme: currentTheme });
+  };
 
+  useEffect(() => {
+    getStorage(['theme'], setDataFromStorage);
+  }, []);
+
+  const theme = getTheme(colorTheme);
   return (
     <ThemeProvider theme={theme}>
       <MainLayout>

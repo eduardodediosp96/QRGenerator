@@ -1,13 +1,14 @@
+import { ProcessedFile } from '@utils/utils';
+
 export interface QRForm {
   size: number | undefined;
   fgColor: string;
   bgColor: string;
-  logoImage: string | undefined;
+  logoFile: ProcessedFile;
 }
 
-export interface OptionsFormProps {
-  qrDetails: QRForm;
-  setQrDetails: React.Dispatch<React.SetStateAction<QRForm>>;
-  handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  fileError: string;
-}
+export type QRCodeOptions = Omit<QRForm, 'logoFile'> & {
+  value: string;
+  logoImage?: string;
+  removeQrCodeBehindLogo: boolean;
+};

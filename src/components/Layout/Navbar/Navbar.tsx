@@ -7,6 +7,7 @@ import Typography from '@commonComponents/Typography/Typography';
 
 // @Types
 import { ThemeMode } from '@theme/Theme.types';
+import { setStorage } from '@services/google/googleServices';
 
 type NavbarProps = {
   colorTheme: ThemeMode;
@@ -15,7 +16,10 @@ type NavbarProps = {
 
 const Navbar = ({ colorTheme, setColorTheme }: NavbarProps) => {
   const handleChangeTheme = () => {
-    setColorTheme((prev) => (prev === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT));
+    const getOpposityTheme = (color: ThemeMode) =>
+      color === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
+    setColorTheme(getOpposityTheme);
+    setStorage({ theme: getOpposityTheme(colorTheme) });
   };
 
   return (

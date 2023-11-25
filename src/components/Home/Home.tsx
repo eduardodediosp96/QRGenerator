@@ -8,65 +8,65 @@ import Typography from '@commonComponents/Typography/Typography';
 // @Icons
 import { ChevronIcon } from '@icons';
 
+// @Services
+import { getCurrentTabUrl, getStorage } from '@services/google/googleServices';
+
 // @Styles
 import { Button } from '@styles/Styles';
 import { HomeContainer, MoreOptionsLabel, QRContainer } from './Home.styles';
 
 // @Types
-import { QRForm } from './Home.types';
+import { QRCodeOptions, QRForm } from './Home.types';
+import { QRGeneratorStorage } from '@services/google/googleServices.types';
 
-// @Utils
-import { readFile } from '@utils/utils';
-
-const defaultQrDetails: QRForm = {
+const defaultQrForm: QRForm = {
   size: 200,
   fgColor: '#000',
   bgColor: '#fff',
-  logoImage: undefined,
+  logoFile: {},
 };
 
 const Home = () => {
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [showMoreOptions, setShowMoreOptions] = useState(false);
-  const [fileError, setFileError] = useState('');
-  const [qrDetails, setQrDetails] = useState(defaultQrDetails);
-
+  const [qrForm, setQrForm] = useState<QRForm>(defaultQrForm);
   const handleShowMoreOptions = () => setShowMoreOptions((prev) => !prev);
+  const setDataFromStorageToForm = (result: QRGeneratorStorage) => {
+    const { logoUrl: url, logoName: name, ...resultProps } = result;
+    const qrFormFromStorage = {
+      ...qrForm,
+      ...resultProps,
+      logoFile: { url, name },
+    };
+    setQrForm(qrFormFromStorage);
+  };
 
   useEffect(() => {
-    // Get the current tab url
-    chrome.tabs?.query({ active: true, currentWindow: true }, (tabs) => {
-      const { url } = tabs[0];
-      setCurrentUrl(url || '');
-    });
+    getCurrentTabUrl((url) => setCurrentUrl(url || ''));
+    getStorage(
+      ['size', 'fgColor', 'bgColor', 'logoUrl', 'logoName'],
+      setDataFromStorageToForm,
+    );
   }, []);
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    try {
-      const file = event.target.files?.[0];
-      const fileData = await readFile(file, [
-        'image/jpeg',
-        'image/png',
-        'image/svg+xml',
-      ]);
-      setQrDetails((prevDetails) => ({
-        ...prevDetails,
-        logoImage: fileData,
-      }));
-      setFileError('');
-    } catch (error) {
-      setFileError(
-        (error as { message?: string }).message ?? 'Something went wrong',
-      );
-    }
+  const getQRCodeOptions = (): QRCodeOptions => {
+    const {
+      logoFile: { url: logoImage },
+      ...formOptionsProps
+    } = qrForm;
+
+    return {
+      ...formOptionsProps,
+      logoImage,
+      value: currentUrl,
+      removeQrCodeBehindLogo: true,
+    };
   };
 
   return (
     <HomeContainer>
       <QRContainer>
-        <QRCode value={currentUrl} removeQrCodeBehindLogo {...qrDetails} />
+        <QRCode {...getQRCodeOptions()} />
       </QRContainer>
       <MoreOptionsLabel
         rotate={!showMoreOptions}
@@ -77,14 +77,7 @@ const Home = () => {
         </Typography>
         <ChevronIcon />
       </MoreOptionsLabel>
-      {showMoreOptions && (
-        <OptionsForm
-          handleFileChange={handleFileChange}
-          fileError={fileError}
-          qrDetails={qrDetails}
-          setQrDetails={setQrDetails}
-        />
-      )}
+      {showMoreOptions && <OptionsForm qrForm={qrForm} setQrForm={setQrForm} />}
       <Button>
         <Typography variant="label">Generate QR</Typography>
       </Button>
