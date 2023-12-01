@@ -1,17 +1,22 @@
+import { useState } from 'react';
+
 // @Components
 import ColorInput from '@commonComponents/inputs/ColorInput/ColorInput';
 import TextInput from '@commonComponents/inputs/TextInput/TextInput';
 import FileInput from '@commonComponents/inputs/FileInput/FileInput';
 
+// @Services
+import { setStorage } from '@services/google/googleServices';
+
 // @Styles
 import { OptionsFormContainer } from './Home.styles';
 
 // @Types
-import { QRForm } from './Home.types';
-import { readFile } from '@utils/utils';
-import { useState } from 'react';
-import { setStorage } from '@services/google/googleServices';
 import { OptionsFormProps } from './OptionsForm.types';
+import { QRForm } from './Home.types';
+
+// @Utils
+import { readFile } from '@utils/utils';
 
 const OptionsForm = ({ qrForm, setQrForm }: OptionsFormProps) => {
   const [fileError, setFileError] = useState('');

@@ -1,13 +1,15 @@
 // @Icons
 import { MoonIcon, SunIcon } from '@icons';
 
+// @Services
+import { setStorage } from '@services/google/googleServices';
+
 // @Styles
 import { PortfolioNavbar, NavbarSection } from './Navbar.styles';
 import Typography from '@commonComponents/Typography/Typography';
 
 // @Types
 import { ThemeMode } from '@theme/Theme.types';
-import { setStorage } from '@services/google/googleServices';
 
 type NavbarProps = {
   colorTheme: ThemeMode;

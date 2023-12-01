@@ -30,7 +30,9 @@ const Home = () => {
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [qrForm, setQrForm] = useState<QRForm>(defaultQrForm);
+
   const handleShowMoreOptions = () => setShowMoreOptions((prev) => !prev);
+
   const setDataFromStorageToForm = (result: QRGeneratorStorage) => {
     const { logoUrl: url, logoName: name, ...resultProps } = result;
     const qrFormFromStorage = {

@@ -5,6 +5,9 @@ import { ThemeProvider } from '@emotion/react';
 import Home from '@components/Home/Home';
 import Navbar from './Navbar/Navbar';
 
+// @Services
+import { getStorage } from '@services/google/googleServices';
+
 // @Styles
 import { MainContainer, MainLayout } from '../Layout/Layout.styles';
 
@@ -14,16 +17,15 @@ import getTheme from '@theme/Theme';
 // @Types
 import { ThemeMode } from '@theme/Theme.types';
 import { QRGeneratorStorage } from '@services/google/googleServices.types';
-import { getStorage, setStorage } from '@services/google/googleServices';
 
 const DEFAULT_THEME = ThemeMode.DARK;
 const Layout = () => {
   const [colorTheme, setColorTheme] = useState<ThemeMode>(DEFAULT_THEME);
+
   const setDataFromStorage = (result: QRGeneratorStorage) => {
     const { theme } = result;
     const currentTheme = theme ?? colorTheme;
     setColorTheme(currentTheme);
-    setStorage({ theme: currentTheme });
   };
 
   useEffect(() => {

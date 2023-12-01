@@ -7,6 +7,7 @@ export interface QRForm {
   logoFile: ProcessedFile;
 }
 
+// QRCode is a type created to handle QR Code Component from react-qrcode-logo
 export type QRCodeOptions = Omit<QRForm, 'logoFile'> & {
   value: string;
   logoImage?: string;
