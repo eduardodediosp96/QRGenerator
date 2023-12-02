@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
+    "types": ["chrome"],
     "paths": {
       "@commonComponents/*": ["src/common/components/*"],
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/common/Constants/*"],
       "@icons": ["src/common/Icons/index.tsx"],
       "@images/*": ["src/common/Images/*"],
+      "@services/*": ["src/services/*"],
       "@styles/*": ["src/common/Styles/*"],
       "@theme/*": ["src/common/Theme/*"],
-      "@utils/*": ["src/common/Utils/*"]
+      "@utils/*": ["src/common/Utils/*"],
     },
     "target": "ES2020",
     "useDefineForClassFields": true,

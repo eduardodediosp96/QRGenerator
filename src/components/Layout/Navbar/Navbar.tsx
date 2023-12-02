@@ -1,6 +1,9 @@
 // @Icons
 import { MoonIcon, SunIcon } from '@icons';
 
+// @Services
+import { setStorage } from '@services/google/googleServices';
+
 // @Styles
 import { PortfolioNavbar, NavbarSection } from './Navbar.styles';
 import Typography from '@commonComponents/Typography/Typography';
@@ -15,7 +18,10 @@ type NavbarProps = {
 
 const Navbar = ({ colorTheme, setColorTheme }: NavbarProps) => {
   const handleChangeTheme = () => {
-    setColorTheme((prev) => (prev === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT));
+    const getOpposityTheme = (color: ThemeMode) =>
+      color === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
+    setColorTheme(getOpposityTheme);
+    setStorage({ theme: getOpposityTheme(colorTheme) });
   };
 
   return (

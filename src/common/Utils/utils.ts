@@ -1,7 +1,14 @@
+// @Tech Debt: move this interface outside the utils if it's necessary
+export interface ProcessedFile {
+  name?: string;
+  url?: string;
+  file?: File | undefined;
+}
+
 export const readFile = (
   file: File | undefined,
   allowedFileTypes: string[],
-): Promise<string> => {
+): Promise<ProcessedFile> => {
   return new Promise((resolve, reject) => {
     if (!file) {
       reject(new Error('No file provided.'));
@@ -17,7 +24,11 @@ export const readFile = (
 
     reader.onloadend = () => {
       if (reader.result) {
-        resolve(reader.result as string);
+        resolve({
+          name: file.name || '',
+          url: reader.result as string,
+          file: file,
+        });
       } else {
         reject(new Error('Failed to read the file.'));
       }
