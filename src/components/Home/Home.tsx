@@ -43,6 +43,28 @@ const Home = () => {
     setQrForm(qrFormFromStorage);
   };
 
+  // Using document.getElementById instead of useRef because the library doesn't allow direct referencing
+  // to the internally generated canvas element.
+  const downloadCode = () => {
+    const canvas: HTMLCanvasElement | null = document.getElementById(
+      'qr-code',
+    ) as HTMLCanvasElement;
+
+    if (canvas) {
+      const pngUrl: string = canvas
+        .toDataURL('image/png')
+        .replace('image/png', 'image/octet-stream');
+
+      const downloadLink: HTMLAnchorElement = document.createElement('a');
+      downloadLink.href = pngUrl;
+      downloadLink.download = `site-qr.png`;
+
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+  };
+
   useEffect(() => {
     getCurrentTabUrl((url) => setCurrentUrl(url || ''));
     getStorage(
@@ -68,7 +90,7 @@ const Home = () => {
   return (
     <HomeContainer>
       <QRContainer>
-        <QRCode {...getQRCodeOptions()} />
+        <QRCode id="qr-code" {...getQRCodeOptions()} />
       </QRContainer>
       <MoreOptionsLabel
         rotate={!showMoreOptions}
@@ -80,7 +102,7 @@ const Home = () => {
         <ChevronIcon />
       </MoreOptionsLabel>
       {showMoreOptions && <OptionsForm qrForm={qrForm} setQrForm={setQrForm} />}
-      <Button>
+      <Button onClick={downloadCode}>
         <Typography variant="label">Generate QR</Typography>
       </Button>
     </HomeContainer>
