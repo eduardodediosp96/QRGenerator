@@ -1,10 +1,15 @@
 {
-  "name": "Hello Extensions",
-  "description": "Base Level Extension",
+  "name": "QR Generator",
+  "description": "Extension that generates and customizes a QR code for the current website",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html"
   },
-  "permissions": ["tabs", "storage"]
+  "permissions": ["tabs", "storage"],
+  "icons": {
+    "16": "qrgenerator.png",
+    "48": "qrgenerator.png",
+    "128": "qrgenerator.png"
+  }
 }

@@ -6,14 +6,19 @@ import OptionsForm from './OptionsForm';
 import Typography from '@commonComponents/Typography/Typography';
 
 // @Icons
-import { ChevronIcon } from '@icons';
+import { ChevronIcon, CopyIcon } from '@icons';
 
 // @Services
 import { getCurrentTabUrl, getStorage } from '@services/google/googleServices';
 
 // @Styles
 import { Button } from '@styles/Styles';
-import { HomeContainer, MoreOptionsLabel, QRContainer } from './Home.styles';
+import {
+  ButtonsContainer,
+  HomeContainer,
+  MoreOptionsLabel,
+  QRContainer,
+} from './Home.styles';
 
 // @Types
 import { QRCodeOptions, QRForm } from './Home.types';
@@ -30,6 +35,15 @@ const Home = () => {
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [qrForm, setQrForm] = useState<QRForm>(defaultQrForm);
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    getCurrentTabUrl((url) => setCurrentUrl(url || ''));
+    getStorage(
+      ['size', 'fgColor', 'bgColor', 'logoUrl', 'logoName'],
+      setDataFromStorageToForm,
+    );
+  }, []);
 
   const handleShowMoreOptions = () => setShowMoreOptions((prev) => !prev);
 
@@ -65,13 +79,36 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    getCurrentTabUrl((url) => setCurrentUrl(url || ''));
-    getStorage(
-      ['size', 'fgColor', 'bgColor', 'logoUrl', 'logoName'],
-      setDataFromStorageToForm,
-    );
-  }, []);
+  const copyToClipboard = () => {
+    const canvas: HTMLCanvasElement | null = document.getElementById(
+      'qr-code',
+    ) as HTMLCanvasElement;
+    if (canvas) {
+      const img = new Image();
+      const pngUrl: string = canvas.toDataURL('image/png');
+      img.src = pngUrl;
+
+      // Once the image is loaded, copy it to the clipboard
+      img.onload = () => {
+        fetch(pngUrl)
+          .then((response) => response.blob())
+          .then((blob) => {
+            const clipboardItem = new ClipboardItem({ 'image/png': blob });
+            navigator.clipboard
+              .write([clipboardItem])
+              .then(() => {
+                setMessage('QR copied to clipboard!');
+              })
+              .catch(() => {
+                setMessage('Error. Try again.');
+              });
+          })
+          .catch(() => {
+            setMessage('Error. Try again.');
+          });
+      };
+    }
+  };
 
   const getQRCodeOptions = (): QRCodeOptions => {
     const {
@@ -102,9 +139,20 @@ const Home = () => {
         <ChevronIcon />
       </MoreOptionsLabel>
       {showMoreOptions && <OptionsForm qrForm={qrForm} setQrForm={setQrForm} />}
-      <Button onClick={downloadCode}>
-        <Typography variant="label">Generate QR</Typography>
-      </Button>
+      <ButtonsContainer>
+        <Button onClick={downloadCode}>
+          <Typography variant="label">Generate QR</Typography>
+        </Button>
+        <Button onClick={copyToClipboard} variant="secondary">
+          <Typography variant="contrastLabel">Copy</Typography>
+          <CopyIcon />
+        </Button>
+      </ButtonsContainer>
+      {message && (
+        <Typography variant="subtitle" margin="0 0 1 0">
+          {message}
+        </Typography>
+      )}
     </HomeContainer>
   );
 };
