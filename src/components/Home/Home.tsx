@@ -6,7 +6,7 @@ import OptionsForm from './OptionsForm';
 import Typography from '@commonComponents/Typography/Typography';
 
 // @Icons
-import { ChevronIcon, CopyIcon } from '@icons';
+import { ChevronIcon, CopyIcon, DownloadIcon } from '@icons';
 
 // @Services
 import { getCurrentTabUrl, getStorage } from '@services/google/googleServices';
@@ -47,6 +47,10 @@ const Home = () => {
 
   const handleShowMoreOptions = () => setShowMoreOptions((prev) => !prev);
 
+  // We use document.getElementById instead of useRef because the library doesn't allow direct referencing
+  const getCanvas = (): HTMLCanvasElement | null =>
+    document.getElementById('qr-code') as HTMLCanvasElement;
+
   const setDataFromStorageToForm = (result: QRGeneratorStorage) => {
     const { logoUrl: url, logoName: name, ...resultProps } = result;
     const qrFormFromStorage = {
@@ -57,13 +61,8 @@ const Home = () => {
     setQrForm(qrFormFromStorage);
   };
 
-  // Using document.getElementById instead of useRef because the library doesn't allow direct referencing
-  // to the internally generated canvas element.
   const downloadCode = () => {
-    const canvas: HTMLCanvasElement | null = document.getElementById(
-      'qr-code',
-    ) as HTMLCanvasElement;
-
+    const canvas = getCanvas();
     if (canvas) {
       const pngUrl: string = canvas
         .toDataURL('image/png')
@@ -80,9 +79,7 @@ const Home = () => {
   };
 
   const copyToClipboard = () => {
-    const canvas: HTMLCanvasElement | null = document.getElementById(
-      'qr-code',
-    ) as HTMLCanvasElement;
+    const canvas = getCanvas();
     if (canvas) {
       const img = new Image();
       const pngUrl: string = canvas.toDataURL('image/png');
@@ -92,16 +89,10 @@ const Home = () => {
       img.onload = () => {
         fetch(pngUrl)
           .then((response) => response.blob())
-          .then((blob) => {
-            const clipboardItem = new ClipboardItem({ 'image/png': blob });
-            navigator.clipboard
-              .write([clipboardItem])
-              .then(() => {
-                setMessage('QR copied to clipboard!');
-              })
-              .catch(() => {
-                setMessage('Error. Try again.');
-              });
+          .then((blob) => new ClipboardItem({ 'image/png': blob }))
+          .then((clipboardItem) => navigator.clipboard.write([clipboardItem]))
+          .then(() => {
+            setMessage('QR copied to clipboard!');
           })
           .catch(() => {
             setMessage('Error. Try again.');
@@ -141,7 +132,8 @@ const Home = () => {
       {showMoreOptions && <OptionsForm qrForm={qrForm} setQrForm={setQrForm} />}
       <ButtonsContainer>
         <Button onClick={downloadCode}>
-          <Typography variant="label">Generate QR</Typography>
+          <Typography variant="label">Download</Typography>
+          <DownloadIcon />
         </Button>
         <Button onClick={copyToClipboard} variant="secondary">
           <Typography variant="contrastLabel">Copy</Typography>
