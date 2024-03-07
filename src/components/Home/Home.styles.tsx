@@ -45,6 +45,10 @@ export const MoreOptionsLabel = styled.div<{ rotate: boolean }>`
       stroke: ${({ theme }) => theme.palette.secondary};
     }
   }
+
+  &:hover {
+    font-weight: 600;
+  }
 `;
 
 export const OptionsFormContainer = styled.div`
