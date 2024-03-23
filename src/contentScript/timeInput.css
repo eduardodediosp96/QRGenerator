@@ -1,0 +1,16 @@
+.custom-time-input {
+  /* Styles for custom time input */
+}
+
+.hidden-time-input {
+  display: none; /* Hide the time input */
+}
+
+input[type='time']::-webkit-clear-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  margin: -10px;
+}

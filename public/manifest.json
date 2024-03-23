@@ -1,12 +1,25 @@
 {
-  "name": "QR Generator",
-  "description": "Extension that generates and customizes a QR code for the current website",
+  "name": "Custom Time Input",
+  "description": "Extension that allow users to use 24h format inputs intead of text inputs",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html"
   },
-  "permissions": ["tabs", "storage"],
+  "permissions": ["activeTab", "tabs", "storage", "scripting"],
+  "background": {
+    "service_worker": "src/background/background.ts",
+    "type": "module",
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://altimetrik.harvestapp.com/*"],
+      "js": ["src/contentScript/main.tsx"],
+      "run_at": "document_end"
+    }
+  ],
+  "host_permissions": ["http://*/*", "https://*/*"],
   "icons": {
     "16": "qrgenerator.png",
     "48": "qrgenerator.png",
