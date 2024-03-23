@@ -102,10 +102,8 @@ const Home = () => {
   };
 
   const getQRCodeOptions = (): QRCodeOptions => {
-    const {
-      logoFile: { url: logoImage },
-      ...formOptionsProps
-    } = qrForm;
+    const { logoFile, ...formOptionsProps } = qrForm;
+    const logoImage = logoFile?.url;
 
     return {
       ...formOptionsProps,

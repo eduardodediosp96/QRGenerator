@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import TextInput from '@commonComponents/inputs/TextInput/TextInput';
 
 // @Icons
-import { UploadIcon } from '@icons';
+import { TrashIcon, UploadIcon } from '@icons';
 
 // @Styles
 import { getEndAdornmentMeasures } from '../InputStyles';
@@ -46,14 +46,25 @@ interface FileInputProps {
   size: TextInputSize;
 }
 
-const StyledUploadIcon = styled(UploadIcon)<FileInputProps>`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 1rem;
-  width: ${(props) => getEndAdornmentMeasures[props.size]};
-  height: ${(props) => getEndAdornmentMeasures[props.size]};
-  pointer-events: none;
+const StyledUploadIcon = styled.div<FileInputProps>`
+  div {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1rem;
+    gap: ${({ theme }) => theme.spacing(1)};
+  }
+
+  svg {
+    cursor: pointer;
+    width: ${(props) => getEndAdornmentMeasures[props.size]};
+    height: ${(props) => getEndAdornmentMeasures[props.size]};
+
+    path {
+      stroke: ${({ theme }) => theme.palette.accent};
+    }
+  }
 `;
 
 interface FileInputProperties extends CommonInputProps {
@@ -92,7 +103,24 @@ const FileInput = ({
     fileInputRef?.current?.click();
   };
 
-  const endAdornment = <StyledUploadIcon size={size} />;
+  const endAdornment = (
+    <StyledUploadIcon size={size}>
+      <div>
+        {!!fileName?.length && (
+          <TrashIcon
+            onClick={() =>
+              handleFileChange({
+                target: {
+                  files: null,
+                },
+              } as ChangeEvent<HTMLInputElement>)
+            }
+          />
+        )}
+        <UploadIcon onClick={handleTextInputClick} />
+      </div>
+    </StyledUploadIcon>
+  );
 
   return (
     <FileInputContainer aria-label="File Picker">

@@ -34,20 +34,24 @@ const TextInput = ({
   onKeyDown,
   ariaDescribedBy,
   readOnly,
+  maxLength,
 }: CommonInputProps) => {
   const hasValue = !!value?.length;
   return (
     <InputWrapper>
       <TextInputContainer>
-        <TextInputLabel htmlFor={id} hasValue={hasValue} size={size}>
-          {label}
-        </TextInputLabel>
+        <div onClick={onClick}>
+          <TextInputLabel htmlFor={id} hasValue={hasValue} size={size}>
+            {label}
+          </TextInputLabel>
+        </div>
         <StyledTextInput
+          maxLength={maxLength}
+          onClick={onClick}
           hasValue={hasValue}
           id={id}
           value={value}
           onChange={onChange}
-          onClick={onClick}
           onFocus={onFocus}
           onBlur={onBlur}
           onKeyDown={onKeyDown}

@@ -49,6 +49,7 @@ export const TextInputLabel = styled.label<{
   transition: transform 0.2s ease-in-out;
   font-size: ${({ hasValue, size, theme }) =>
     InputLabelCssProps(hasValue, theme)[size].fontSize};
+  cursor: pointer;
 `;
 
 export const InputWrapper = styled.div`
@@ -65,7 +66,7 @@ export const getEndAdornmentStyles = (size: TextInputSize, color?: string) => ({
   right: '1rem',
   width: getEndAdornmentMeasures[size],
   height: getEndAdornmentMeasures[size],
-  backgroundColor: !!color ? color : 'auto',
+  backgroundColor: color ? color : 'auto',
   pointerEvents: 'none',
 });
 

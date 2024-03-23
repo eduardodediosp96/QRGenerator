@@ -68,17 +68,13 @@ const OptionsForm = ({ qrForm, setQrForm }: OptionsFormProps) => {
         'image/svg+xml',
       ]);
 
-      if (!logoFile) {
-        return;
-      }
-
       setQrForm((prevDetails) => ({
         ...prevDetails,
         logoFile,
       }));
       setStorage({
         logoName,
-        logoUrl: logoFile.url,
+        logoUrl: logoFile?.url,
       });
       setFileError('');
     } catch (error) {
@@ -94,6 +90,7 @@ const OptionsForm = ({ qrForm, setQrForm }: OptionsFormProps) => {
         label="Size"
         onChange={handleChangeSize}
         value={size?.toString()}
+        maxLength={4}
       />
       <ColorInput
         defaultColor={fgColor}

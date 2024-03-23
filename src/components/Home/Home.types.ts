@@ -4,7 +4,7 @@ export interface QRForm {
   size: number | undefined;
   fgColor: string;
   bgColor: string;
-  logoFile: ProcessedFile;
+  logoFile: ProcessedFile | null;
 }
 
 // QRCode is a type created to handle QR Code Component from react-qrcode-logo
