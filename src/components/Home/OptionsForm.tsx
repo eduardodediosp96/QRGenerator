@@ -74,7 +74,7 @@ const OptionsForm = ({ qrForm, setQrForm }: OptionsFormProps) => {
       }));
       setStorage({
         logoName,
-        logoUrl: logoFile?.url,
+        logoUrl: logoFile ? logoFile.url : '',
       });
       setFileError('');
     } catch (error) {
