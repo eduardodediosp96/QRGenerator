@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { QRCode } from 'react-qrcode-logo';
 import OptionsForm from './OptionsForm';
 import Typography from '@commonComponents/Typography/Typography';
+import { TextInputSize } from '@commonComponents/inputs/InputTypes';
 
 // @Icons
 import { ChevronIcon, CopyIcon, DownloadIcon } from '@icons';
@@ -115,6 +116,9 @@ const Home = () => {
 
   return (
     <HomeContainer>
+      <Typography variant="inputLabel" margin="0">
+        {`${currentUrl.substring(0, 30)}...`}
+      </Typography>
       <QRContainer>
         <QRCode id="qr-code" {...getQRCodeOptions()} />
       </QRContainer>
@@ -122,26 +126,32 @@ const Home = () => {
         rotate={!showMoreOptions}
         onClick={handleShowMoreOptions}
       >
-        <Typography variant="subtitle" margin="0">
+        <Typography variant="body3" margin="0">
           {showMoreOptions ? 'Hide options' : 'Show more options'}
         </Typography>
         <ChevronIcon />
       </MoreOptionsLabel>
       {showMoreOptions && <OptionsForm qrForm={qrForm} setQrForm={setQrForm} />}
       <ButtonsContainer>
-        <Button onClick={downloadCode}>
+        <Button onClick={downloadCode} size={TextInputSize.SMALL}>
           <Typography variant="label">Download</Typography>
           <DownloadIcon />
         </Button>
-        <Button onClick={copyToClipboard} variant="secondary">
+        <Button
+          onClick={copyToClipboard}
+          variant="secondary"
+          size={TextInputSize.SMALL}
+        >
           <Typography variant="contrastLabel">Copy</Typography>
           <CopyIcon />
         </Button>
       </ButtonsContainer>
       {message && (
-        <Typography variant="subtitle" margin="0 0 1 0">
-          {message}
-        </Typography>
+        <div>
+          <Typography variant="body3" margin="0 0 1 0">
+            {message}
+          </Typography>
+        </div>
       )}
     </HomeContainer>
   );

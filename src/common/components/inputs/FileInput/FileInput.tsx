@@ -8,7 +8,7 @@ import TextInput from '@commonComponents/inputs/TextInput/TextInput';
 import { TrashIcon, UploadIcon } from '@icons';
 
 // @Styles
-import { getEndAdornmentMeasures } from '../InputStyles';
+import { getIconMeasures } from '../InputStyles';
 
 // @Theme
 import { Breakpoint } from '@theme/Theme.types';
@@ -58,11 +58,11 @@ const StyledUploadIcon = styled.div<FileInputProps>`
 
   svg {
     cursor: pointer;
-    width: ${(props) => getEndAdornmentMeasures[props.size]};
-    height: ${(props) => getEndAdornmentMeasures[props.size]};
+    width: ${(props) => getIconMeasures[props.size]};
+    height: ${(props) => getIconMeasures[props.size]};
 
     path {
-      stroke: ${({ theme }) => theme.palette.accent};
+      stroke: ${({ theme }) => theme.palette.contrastAccent};
     }
   }
 `;

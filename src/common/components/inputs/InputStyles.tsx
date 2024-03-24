@@ -64,8 +64,8 @@ export const getEndAdornmentStyles = (size: TextInputSize, color?: string) => ({
   top: '50%',
   transform: 'translateY(-50%)',
   right: '1rem',
-  width: getEndAdornmentMeasures[size],
-  height: getEndAdornmentMeasures[size],
+  width: getIconMeasures[size],
+  height: getIconMeasures[size],
   backgroundColor: color ? color : 'auto',
   pointerEvents: 'none',
 });
@@ -114,8 +114,8 @@ export const TextInputStyle = ({
 
 export const StyledTextInput = styled('input')(TextInputStyle);
 
-export const getEndAdornmentMeasures = {
-  [TextInputSize.SMALL]: '0.75rem',
+export const getIconMeasures = {
+  [TextInputSize.SMALL]: '1.25rem',
   [TextInputSize.MEDIUM]: '1.5rem',
   [TextInputSize.LARGE]: '1.75rem',
 };

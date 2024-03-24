@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import TextInput from '@commonComponents/inputs/TextInput/TextInput';
 
 // @Styles
-import { getEndAdornmentMeasures } from '../InputStyles';
+import { getIconMeasures } from '../InputStyles';
 
 // @Theme
 import { Breakpoint } from '@theme/Theme.types';
@@ -51,8 +51,8 @@ const ColorBox = styled.div<ColorBoxProps>`
   top: 50%;
   transform: translateY(-50%);
   right: 1rem;
-  width: ${(props) => getEndAdornmentMeasures[props.size]};
-  height: ${(props) => getEndAdornmentMeasures[props.size]};
+  width: ${(props) => getIconMeasures[props.size]};
+  height: ${(props) => getIconMeasures[props.size]};
   background-color: ${(props) => props.color};
   pointer-events: none;
 `;
