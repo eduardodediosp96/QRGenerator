@@ -96,6 +96,10 @@ const Home = () => {
           })
           .catch(() => {
             setMessage('Error. Try again.');
+          })
+          .finally(() => {
+            // Clear message after 3 seconds
+            setTimeout(() => setMessage(''), 3000);
           });
       };
     }
