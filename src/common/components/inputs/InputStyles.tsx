@@ -59,17 +59,6 @@ export const InputWrapper = styled.div`
   justify-content: flex-start;
 `;
 
-export const getEndAdornmentStyles = (size: TextInputSize, color?: string) => ({
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  right: '1rem',
-  width: getIconMeasures[size],
-  height: getIconMeasures[size],
-  backgroundColor: color ? color : 'auto',
-  pointerEvents: 'none',
-});
-
 // Tech Debt: https://github.com/eduardodediosp96/QRGenerator/pull/3
 export const TextInputSizeCssProps = (
   hasValue: boolean,

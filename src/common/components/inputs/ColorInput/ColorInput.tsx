@@ -47,14 +47,10 @@ const ColorInput = styled.input`
 `;
 
 const ColorBox = styled.div<ColorBoxProps>`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 1rem;
   width: ${(props) => getIconMeasures[props.size]};
   height: ${(props) => getIconMeasures[props.size]};
   background-color: ${(props) => props.color};
-  pointer-events: none;
+  cursor: pointer;
 `;
 
 interface ColorPickerProperties extends CommonInputProps {
@@ -75,10 +71,16 @@ const ColorPicker = ({
   const colorInputRef = useRef<HTMLInputElement>(null);
 
   const handleTextInputClick = () => {
-    // Give focus to the color component since our goal is to open the palette instead of interacting with the text input directly
-    colorInputRef?.current?.click();
-    // Set setColor to true to simulate the real action with a native color input, where each click serves to trigger the palette
-    setColorInputOpen(true);
+    if (!colorInputOpen) {
+      // Give focus to the color component since our goal is to open the palette instead of interacting with the text input directly
+      colorInputRef?.current?.click();
+      // Set setColor to true to simulate the real action with a native color input, where each click serves to trigger the palette
+      setColorInputOpen(true);
+    } else {
+      colorInputRef?.current?.blur();
+      // Set setColor to true to simulate the real action with a native color input, where each click serves to trigger the palette
+      setColorInputOpen(false);
+    }
   };
 
   // Tech Debt: This function is likely duplicated in various other input components. Consider refactoring it as a shared utility function,
@@ -109,6 +111,7 @@ const ColorPicker = ({
 
   const endAdornment = (
     <ColorBox
+      onClick={handleTextInputClick}
       color={color}
       size={size}
       aria-label="Preview of the selected color"
