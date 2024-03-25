@@ -58,7 +58,8 @@ const ColorBox = styled.div<ColorBoxProps>`
 `;
 
 interface ColorPickerProperties extends CommonInputProps {
-  defaultColor?: string;
+  color: string;
+  setColor: (color: string) => void;
 }
 
 const ColorPicker = ({
@@ -66,11 +67,11 @@ const ColorPicker = ({
   error,
   label,
   ariaDescribedBy,
-  defaultColor = '#ffffff',
+  color,
+  setColor,
   size = TextInputSize.MEDIUM,
   onChange = () => {},
 }: ColorPickerProperties) => {
-  const [color, setColor] = useState<string>(defaultColor);
   const [colorInputOpen, setColorInputOpen] = useState<boolean>(false);
   const colorInputRef = useRef<HTMLInputElement>(null);
 

@@ -8,9 +8,9 @@ export const HomeContainer = styled.div`
   justify-content: center;
   gap: ${({ theme }) => theme.spacing(1.5)};
   padding: ${({ theme }) =>
-    `${theme.spacing(1)} ${theme.spacing(3)} ${theme.spacing(
+    `${theme.spacing(1)} ${theme.spacing(2.5)} ${theme.spacing(
       2,
-    )} ${theme.spacing(3)}`};
+    )} ${theme.spacing(2.5)}`};
 `;
 
 export const QRContainer = styled.div`
@@ -21,12 +21,12 @@ export const QRContainer = styled.div`
   align-items: center;
   border-radius: ${({ theme }) => theme.shapes.rounded[1]};
 
-  height: 11.25rem;
-  width: 11.25rem;
+  height: 11rem;
+  width: 11rem;
 
   canvas {
-    max-height: 11.25rem;
-    max-width: 11.25rem;
+    max-height: 10.75rem;
+    max-width: 10.75rem;
   }
 `;
 

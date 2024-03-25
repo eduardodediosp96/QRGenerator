@@ -7,13 +7,17 @@ import Typography from '@commonComponents/Typography/Typography';
 import { TextInputSize } from '@commonComponents/inputs/InputTypes';
 
 // @Icons
-import { ChevronIcon, CopyIcon, DownloadIcon } from '@icons';
+import { ChevronIcon, CopyIcon, DownloadIcon, ResetIcon } from '@icons';
 
 // @Services
-import { getCurrentTabUrl, getStorage } from '@services/google/googleServices';
+import {
+  getCurrentTabUrl,
+  getStorage,
+  setStorage,
+} from '@services/google/googleServices';
 
 // @Styles
-import { Button } from '@styles/Styles';
+import { Button, TextButton } from '@styles/Styles';
 import {
   ButtonsContainer,
   HomeContainer,
@@ -114,6 +118,11 @@ const Home = () => {
     };
   };
 
+  const handleReset = () => {
+    setStorage({ ...defaultQrForm, logoName: '', logoUrl: '' });
+    setQrForm(defaultQrForm);
+  };
+
   return (
     <HomeContainer>
       <Typography variant="inputLabel" margin="0">
@@ -145,6 +154,10 @@ const Home = () => {
           <Typography variant="contrastLabel">Copy</Typography>
           <CopyIcon />
         </Button>
+        <TextButton onClick={handleReset} size={TextInputSize.SMALL}>
+          <Typography variant="accentLabel">Reset</Typography>
+          <ResetIcon />
+        </TextButton>
       </ButtonsContainer>
       {message && (
         <div>

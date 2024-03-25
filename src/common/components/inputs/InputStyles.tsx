@@ -115,7 +115,7 @@ export const TextInputStyle = ({
 export const StyledTextInput = styled('input')(TextInputStyle);
 
 export const getIconMeasures = {
-  [TextInputSize.SMALL]: '1.25rem',
+  [TextInputSize.SMALL]: '1.15rem',
   [TextInputSize.MEDIUM]: '1.5rem',
   [TextInputSize.LARGE]: '1.75rem',
 };

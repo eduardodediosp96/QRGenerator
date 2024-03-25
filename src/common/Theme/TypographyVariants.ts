@@ -33,6 +33,10 @@ export const getTypography = (themeColor: ThemeMode) => ({
     fontSize: fontSizes.small,
     color: palette[themeColor].contrastText,
   },
+  accentLabel: {
+    fontSize: fontSizes.small,
+    color: palette[themeColor].contrastAccent,
+  },
   body1: {
     fontSize: fontSizes.xlarge,
     color: palette[themeColor].secondary,
