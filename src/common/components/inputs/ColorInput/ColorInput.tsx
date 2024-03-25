@@ -54,21 +54,26 @@ const ColorBox = styled.div<ColorBoxProps>`
 `;
 
 interface ColorPickerProperties extends CommonInputProps {
+  color: string;
   defaultColor?: string;
+  setColor: (color: string) => void;
 }
 
 const ColorPicker = ({
-  id,
-  error,
-  label,
   ariaDescribedBy,
-  defaultColor = '#ffffff',
-  size = TextInputSize.MEDIUM,
+  color,
+  defaultColor = '#fff',
+  error,
+  id,
+  label,
   onChange = () => {},
+  setColor,
+  size = TextInputSize.MEDIUM,
 }: ColorPickerProperties) => {
-  const [color, setColor] = useState<string>(defaultColor);
   const [colorInputOpen, setColorInputOpen] = useState<boolean>(false);
   const colorInputRef = useRef<HTMLInputElement>(null);
+
+  const currentColor = color || defaultColor;
 
   const handleTextInputClick = () => {
     if (!colorInputOpen) {
@@ -112,7 +117,7 @@ const ColorPicker = ({
   const endAdornment = (
     <ColorBox
       onClick={handleTextInputClick}
-      color={color}
+      color={currentColor}
       size={size}
       aria-label="Preview of the selected color"
     />
@@ -122,7 +127,7 @@ const ColorPicker = ({
     <ColorPickerContainer aria-label="Color Picker">
       <ColorInput
         type="color"
-        value={color}
+        value={currentColor}
         onChange={handleColorChange}
         ref={colorInputRef}
         aria-label="Select color"
@@ -133,7 +138,7 @@ const ColorPicker = ({
         endAdornment={endAdornment}
         label={label}
         size={size}
-        value={color}
+        value={currentColor}
         onClick={handleTextInputClick}
         onKeyDown={handleTextInputKeydown}
         aria-label="Color value"

@@ -3,7 +3,7 @@ import { PaletteType, ThemeMode } from './Theme.types';
 
 export const colors = {
   backgroundBlack: '#101418',
-  backgroundWhite: '#EBEAF1',
+  backgroundWhite: '#f7f7f7',
   primaryBlack: '#1D1E20',
   primaryWhite: '#fff',
   secondaryBlack: '#60646C',

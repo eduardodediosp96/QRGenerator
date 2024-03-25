@@ -95,13 +95,15 @@ const OptionsForm = ({ qrForm, setQrForm }: OptionsFormProps) => {
         size={TextInputSize.SMALL}
       />
       <ColorInput
-        defaultColor={fgColor}
+        color={fgColor}
+        setColor={(color) => setQrForm({ ...qrForm, fgColor: color })}
         label="Color"
         onChange={handleChangeColor('fgColor')}
         size={TextInputSize.SMALL}
       />
       <ColorInput
-        defaultColor={bgColor}
+        color={bgColor}
+        setColor={(color) => setQrForm({ ...qrForm, bgColor: color })}
         label="Background Color"
         onChange={handleChangeColor('bgColor')}
         size={TextInputSize.SMALL}

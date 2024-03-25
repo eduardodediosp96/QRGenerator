@@ -6,13 +6,17 @@ import OptionsForm from './OptionsForm';
 import Typography from '@commonComponents/Typography/Typography';
 
 // @Icons
-import { ChevronIcon, CopyIcon, DownloadIcon } from '@icons';
+import { ChevronIcon, CopyIcon, DownloadIcon, ResetIcon } from '@icons';
 
 // @Services
-import { getCurrentTabUrl, getStorage } from '@services/google/googleServices';
+import {
+  getCurrentTabUrl,
+  getStorage,
+  setStorage,
+} from '@services/google/googleServices';
 
 // @Styles
-import { Button } from '@styles/Styles';
+import { Button, TextButton } from '@styles/Styles';
 import {
   ButtonsContainer,
   HomeContainer,
@@ -114,6 +118,11 @@ const Home = () => {
     };
   };
 
+  const handleReset = () => {
+    setStorage({ ...defaultQrForm, logoName: '', logoUrl: '' });
+    setQrForm(defaultQrForm);
+  };
+
   return (
     <HomeContainer>
       <Typography variant="inputLabel" margin="0">
@@ -145,6 +154,12 @@ const Home = () => {
           <Typography variant="contrastLabel">Copy</Typography>
           <CopyIcon />
         </Button>
+        <TextButton onClick={handleReset} size={TextInputSize.SMALL}>
+          <Typography variant="label" accent>
+            Reset
+          </Typography>
+          <ResetIcon />
+        </TextButton>
       </ButtonsContainer>
       {message && (
         <Typography variant="body3" margin="0 0 1 0">
