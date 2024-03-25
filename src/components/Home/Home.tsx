@@ -21,6 +21,7 @@ import {
 } from './Home.styles';
 
 // @Types
+import { TextInputSize } from '@commonComponents/inputs/InputTypes';
 import { QRCodeOptions, QRForm } from './Home.types';
 import { QRGeneratorStorage } from '@services/google/googleServices.types';
 
@@ -102,10 +103,8 @@ const Home = () => {
   };
 
   const getQRCodeOptions = (): QRCodeOptions => {
-    const {
-      logoFile: { url: logoImage },
-      ...formOptionsProps
-    } = qrForm;
+    const { logoFile, ...formOptionsProps } = qrForm;
+    const logoImage = logoFile?.url;
 
     return {
       ...formOptionsProps,
@@ -117,6 +116,9 @@ const Home = () => {
 
   return (
     <HomeContainer>
+      <Typography variant="inputLabel" margin="0">
+        {`${currentUrl.substring(0, 30)}...`}
+      </Typography>
       <QRContainer>
         <QRCode id="qr-code" {...getQRCodeOptions()} />
       </QRContainer>
@@ -124,24 +126,28 @@ const Home = () => {
         rotate={!showMoreOptions}
         onClick={handleShowMoreOptions}
       >
-        <Typography variant="subtitle" margin="0">
+        <Typography variant="body3" margin="0">
           {showMoreOptions ? 'Hide options' : 'Show more options'}
         </Typography>
         <ChevronIcon />
       </MoreOptionsLabel>
       {showMoreOptions && <OptionsForm qrForm={qrForm} setQrForm={setQrForm} />}
       <ButtonsContainer>
-        <Button onClick={downloadCode}>
+        <Button onClick={downloadCode} size={TextInputSize.SMALL}>
           <Typography variant="label">Download</Typography>
           <DownloadIcon />
         </Button>
-        <Button onClick={copyToClipboard} variant="secondary">
+        <Button
+          onClick={copyToClipboard}
+          variant="secondary"
+          size={TextInputSize.SMALL}
+        >
           <Typography variant="contrastLabel">Copy</Typography>
           <CopyIcon />
         </Button>
       </ButtonsContainer>
       {message && (
-        <Typography variant="subtitle" margin="0 0 1 0">
+        <Typography variant="body3" margin="0 0 1 0">
           {message}
         </Typography>
       )}

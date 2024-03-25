@@ -6,6 +6,7 @@ export type PaletteType = {
   primary: string;
   accent: string;
   secondary: string;
+  contrastAccent: string;
 };
 
 export type SizingType = {

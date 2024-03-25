@@ -21,4 +21,5 @@ export interface CommonInputProps {
   size?: TextInputSize;
   readOnly?: boolean;
   error?: string;
+  maxLength?: number;
 }

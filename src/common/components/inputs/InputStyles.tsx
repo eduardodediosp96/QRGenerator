@@ -49,6 +49,7 @@ export const TextInputLabel = styled.label<{
   transition: transform 0.2s ease-in-out;
   font-size: ${({ hasValue, size, theme }) =>
     InputLabelCssProps(hasValue, theme)[size].fontSize};
+  cursor: pointer;
 `;
 
 export const InputWrapper = styled.div`
@@ -57,17 +58,6 @@ export const InputWrapper = styled.div`
   width: 100%;
   justify-content: flex-start;
 `;
-
-export const getEndAdornmentStyles = (size: TextInputSize, color?: string) => ({
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  right: '1rem',
-  width: getEndAdornmentMeasures[size],
-  height: getEndAdornmentMeasures[size],
-  backgroundColor: !!color ? color : 'auto',
-  pointerEvents: 'none',
-});
 
 // Tech Debt: https://github.com/eduardodediosp96/QRGenerator/pull/3
 export const TextInputSizeCssProps = (
@@ -113,8 +103,8 @@ export const TextInputStyle = ({
 
 export const StyledTextInput = styled('input')(TextInputStyle);
 
-export const getEndAdornmentMeasures = {
-  [TextInputSize.SMALL]: '0.75rem',
+export const getIconMeasures = {
+  [TextInputSize.SMALL]: '1.25rem',
   [TextInputSize.MEDIUM]: '1.5rem',
   [TextInputSize.LARGE]: '1.75rem',
 };

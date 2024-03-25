@@ -13,7 +13,28 @@ import {
   TextInputContainer,
   TextInputLabel,
   StyledTextInput,
+  getIconMeasures,
 } from '../InputStyles';
+import styled from '@emotion/styled';
+
+const StyledEndAdornment = styled.div<{ size: TextInputSize }>`
+  display: flex;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1rem;
+  gap: ${({ theme }) => theme.spacing(1)};
+
+  svg {
+    cursor: pointer;
+    width: ${(props) => getIconMeasures[props.size]};
+    height: ${(props) => getIconMeasures[props.size]};
+
+    path {
+      stroke: ${({ theme }) => theme.palette.contrastAccent};
+    }
+  }
+`;
 
 export interface StyledTextInputProps {
   hasValue?: boolean;
@@ -34,20 +55,24 @@ const TextInput = ({
   onKeyDown,
   ariaDescribedBy,
   readOnly,
+  maxLength,
 }: CommonInputProps) => {
   const hasValue = !!value?.length;
   return (
     <InputWrapper>
       <TextInputContainer>
-        <TextInputLabel htmlFor={id} hasValue={hasValue} size={size}>
-          {label}
-        </TextInputLabel>
+        <div onClick={onClick}>
+          <TextInputLabel htmlFor={id} hasValue={hasValue} size={size}>
+            {label}
+          </TextInputLabel>
+        </div>
         <StyledTextInput
+          maxLength={maxLength}
+          onClick={onClick}
           hasValue={hasValue}
           id={id}
           value={value}
           onChange={onChange}
-          onClick={onClick}
           onFocus={onFocus}
           onBlur={onBlur}
           onKeyDown={onKeyDown}
@@ -55,7 +80,7 @@ const TextInput = ({
           aria-describedby={ariaDescribedBy}
           size={size}
         />
-        {endAdornment}
+        <StyledEndAdornment size={size}>{endAdornment}</StyledEndAdornment>
       </TextInputContainer>
       {error && (
         <Typography variant="error" margin="1 0 0 0" as="div">

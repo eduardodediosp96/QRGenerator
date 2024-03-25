@@ -6,7 +6,7 @@ export const HomeContainer = styled.div`
   align-items: center;
   text-align: center;
   justify-content: center;
-  gap: ${({ theme }) => theme.spacing(2)};
+  gap: ${({ theme }) => theme.spacing(1.5)};
   padding: ${({ theme }) =>
     `${theme.spacing(1)} ${theme.spacing(3)} ${theme.spacing(
       2,
@@ -61,12 +61,4 @@ export const OptionsFormContainer = styled.div`
 export const ButtonsContainer = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing(1)};
-
-  svg {
-    height: 18px;
-    width: 20px;
-    transform: translateY(3px);
-    fill: ${({ theme }) => theme.palette.contrastText};
-    margin-right: ${({ theme }) => theme.spacing(0.5)};
-  }
 `;

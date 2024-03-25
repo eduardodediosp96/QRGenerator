@@ -8,10 +8,10 @@ export interface ProcessedFile {
 export const readFile = (
   file: File | undefined,
   allowedFileTypes: string[],
-): Promise<ProcessedFile> => {
+): Promise<ProcessedFile | null> => {
   return new Promise((resolve, reject) => {
     if (!file) {
-      reject(new Error('No file provided.'));
+      resolve(null);
       return;
     }
 

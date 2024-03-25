@@ -21,6 +21,7 @@ export const palette: Record<ThemeMode, PaletteType> = {
     secondary: colors.secondaryWhite,
     disabled: '#b5b3b3',
     accent: colors.accents[0],
+    contrastAccent: colors.accents[0],
   },
   light: {
     background: colors.backgroundWhite,
@@ -30,5 +31,6 @@ export const palette: Record<ThemeMode, PaletteType> = {
     secondary: colors.secondaryBlack,
     primary: colors.primaryBlack,
     accent: colors.accents[0],
+    contrastAccent: colors.primaryBlack,
   },
 };

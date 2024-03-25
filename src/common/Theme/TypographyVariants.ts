@@ -26,11 +26,11 @@ export const getTypography = (themeColor: ThemeMode) => ({
     color: palette[themeColor].secondary,
   },
   label: {
-    fontSize: fontSizes.medium,
+    fontSize: fontSizes.small,
     color: colors.primaryBlack,
   },
   contrastLabel: {
-    fontSize: fontSizes.medium,
+    fontSize: fontSizes.small,
     color: palette[themeColor].contrastText,
   },
   body1: {

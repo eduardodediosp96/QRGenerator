@@ -5,10 +5,7 @@ import styled from '@emotion/styled';
 import TextInput from '@commonComponents/inputs/TextInput/TextInput';
 
 // @Icons
-import { UploadIcon } from '@icons';
-
-// @Styles
-import { getEndAdornmentMeasures } from '../InputStyles';
+import { TrashIcon, UploadIcon } from '@icons';
 
 // @Theme
 import { Breakpoint } from '@theme/Theme.types';
@@ -40,20 +37,6 @@ const StyledFileInput = styled.input`
     right: unset;
     left: 0.3rem;
   }
-`;
-
-interface FileInputProps {
-  size: TextInputSize;
-}
-
-const StyledUploadIcon = styled(UploadIcon)<FileInputProps>`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 1rem;
-  width: ${(props) => getEndAdornmentMeasures[props.size]};
-  height: ${(props) => getEndAdornmentMeasures[props.size]};
-  pointer-events: none;
 `;
 
 interface FileInputProperties extends CommonInputProps {
@@ -92,7 +75,22 @@ const FileInput = ({
     fileInputRef?.current?.click();
   };
 
-  const endAdornment = <StyledUploadIcon size={size} />;
+  const endAdornment = (
+    <>
+      {!!fileName?.length && (
+        <TrashIcon
+          onClick={() =>
+            handleFileChange({
+              target: {
+                files: null,
+              },
+            } as ChangeEvent<HTMLInputElement>)
+          }
+        />
+      )}
+      <UploadIcon onClick={handleTextInputClick} />
+    </>
+  );
 
   return (
     <FileInputContainer aria-label="File Picker">

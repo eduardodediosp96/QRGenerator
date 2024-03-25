@@ -14,6 +14,7 @@ import { OptionsFormContainer } from './Home.styles';
 // @Types
 import { OptionsFormProps } from './OptionsForm.types';
 import { QRForm } from './Home.types';
+import { TextInputSize } from '@commonComponents/inputs/InputTypes';
 
 // @Utils
 import { readFile } from '@utils/utils';
@@ -68,17 +69,13 @@ const OptionsForm = ({ qrForm, setQrForm }: OptionsFormProps) => {
         'image/svg+xml',
       ]);
 
-      if (!logoFile) {
-        return;
-      }
-
       setQrForm((prevDetails) => ({
         ...prevDetails,
         logoFile,
       }));
       setStorage({
         logoName,
-        logoUrl: logoFile.url,
+        logoUrl: logoFile ? logoFile.url : '',
       });
       setFileError('');
     } catch (error) {
@@ -94,22 +91,27 @@ const OptionsForm = ({ qrForm, setQrForm }: OptionsFormProps) => {
         label="Size"
         onChange={handleChangeSize}
         value={size?.toString()}
+        maxLength={4}
+        size={TextInputSize.SMALL}
       />
       <ColorInput
         defaultColor={fgColor}
         label="Color"
         onChange={handleChangeColor('fgColor')}
+        size={TextInputSize.SMALL}
       />
       <ColorInput
         defaultColor={bgColor}
         label="Background Color"
         onChange={handleChangeColor('bgColor')}
+        size={TextInputSize.SMALL}
       />
       <FileInput
         label="Logo Image"
         fileName={logoFile?.name || ''}
         onChange={handleFileChange}
         error={fileError}
+        size={TextInputSize.SMALL}
       />
     </OptionsFormContainer>
   );
