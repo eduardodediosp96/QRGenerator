@@ -155,7 +155,9 @@ const Home = () => {
           <CopyIcon />
         </Button>
         <TextButton onClick={handleReset} size={TextInputSize.SMALL}>
-          <Typography variant="accentLabel">Reset</Typography>
+          <Typography variant="label" accent>
+            Reset
+          </Typography>
           <ResetIcon />
         </TextButton>
       </ButtonsContainer>
