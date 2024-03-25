@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { QRCode } from 'react-qrcode-logo';
 import OptionsForm from './OptionsForm';
 import Typography from '@commonComponents/Typography/Typography';
-import { TextInputSize } from '@commonComponents/inputs/InputTypes';
 
 // @Icons
 import { ChevronIcon, CopyIcon, DownloadIcon, ResetIcon } from '@icons';
@@ -26,6 +25,7 @@ import {
 } from './Home.styles';
 
 // @Types
+import { TextInputSize } from '@commonComponents/inputs/InputTypes';
 import { QRCodeOptions, QRForm } from './Home.types';
 import { QRGeneratorStorage } from '@services/google/googleServices.types';
 
@@ -160,11 +160,9 @@ const Home = () => {
         </TextButton>
       </ButtonsContainer>
       {message && (
-        <div>
-          <Typography variant="body3" margin="0 0 1 0">
-            {message}
-          </Typography>
-        </div>
+        <Typography variant="body3" margin="0 0 1 0">
+          {message}
+        </Typography>
       )}
     </HomeContainer>
   );

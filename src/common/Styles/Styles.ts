@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 
-// @Components
+// @Styles
 import { getIconMeasures } from '@commonComponents/inputs/InputStyles';
+
+// @Types
 import { TextInputSize } from '@commonComponents/inputs/InputTypes';
 
 export const TextButton = styled.button<{

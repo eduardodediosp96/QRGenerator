@@ -7,9 +7,6 @@ import TextInput from '@commonComponents/inputs/TextInput/TextInput';
 // @Icons
 import { TrashIcon, UploadIcon } from '@icons';
 
-// @Styles
-import { getIconMeasures } from '../InputStyles';
-
 // @Theme
 import { Breakpoint } from '@theme/Theme.types';
 
@@ -39,31 +36,6 @@ const StyledFileInput = styled.input`
     top: 2rem;
     right: unset;
     left: 0.3rem;
-  }
-`;
-
-interface FileInputProps {
-  size: TextInputSize;
-}
-
-const StyledUploadIcon = styled.div<FileInputProps>`
-  div {
-    display: flex;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 1rem;
-    gap: ${({ theme }) => theme.spacing(1)};
-  }
-
-  svg {
-    cursor: pointer;
-    width: ${(props) => getIconMeasures[props.size]};
-    height: ${(props) => getIconMeasures[props.size]};
-
-    path {
-      stroke: ${({ theme }) => theme.palette.contrastAccent};
-    }
   }
 `;
 
@@ -104,22 +76,20 @@ const FileInput = ({
   };
 
   const endAdornment = (
-    <StyledUploadIcon size={size}>
-      <div>
-        {!!fileName?.length && (
-          <TrashIcon
-            onClick={() =>
-              handleFileChange({
-                target: {
-                  files: null,
-                },
-              } as ChangeEvent<HTMLInputElement>)
-            }
-          />
-        )}
-        <UploadIcon onClick={handleTextInputClick} />
-      </div>
-    </StyledUploadIcon>
+    <>
+      {!!fileName?.length && (
+        <TrashIcon
+          onClick={() =>
+            handleFileChange({
+              target: {
+                files: null,
+              },
+            } as ChangeEvent<HTMLInputElement>)
+          }
+        />
+      )}
+      <UploadIcon onClick={handleTextInputClick} />
+    </>
   );
 
   return (
